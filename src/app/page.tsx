@@ -354,8 +354,8 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="relative rounded-3xl overflow-hidden backdrop-blur-xl bg-white/10 border border-white/20 p-8 shadow-2xl">
-                <div className="relative w-full h-[500px] rounded-2xl overflow-hidden">
+              <div className="relative rounded-3xl overflow-hidden backdrop-blur-xl bg-white/5 border-2 border-white/30 p-6 shadow-2xl">
+                <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-inner">
                   <Image
                     src="/images/hero-transformation.png"
                     alt="AI Transformation - Before/After"
@@ -363,16 +363,25 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
                     className="object-cover"
                     priority
                   />
+                  {/* Overlay gradient subtil pour effet premium */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent pointer-events-none"></div>
                 </div>
                 
                 {/* Badge flottant ROI */}
                 <motion.div 
-                  className="absolute -bottom-6 -right-6 px-6 py-4 bg-gradient-to-r from-green-400 to-emerald-500 rounded-2xl shadow-2xl"
-                  animate={{ rotate: [0, 3, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
+                  className="absolute -bottom-6 -right-6 px-6 py-4 bg-gradient-to-r from-green-400 to-emerald-500 rounded-2xl shadow-2xl border-2 border-white/30"
+                  animate={{ 
+                    rotate: [0, 3, 0],
+                    scale: [1, 1.05, 1]
+                  }}
+                  transition={{ 
+                    duration: 2, 
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
                 >
-                  <p className="text-white font-bold text-2xl">+240% ROI</p>
-                  <p className="text-white/80 text-sm">{isEN ? "Avg. in 3 months" : "En 3 mois moy."}</p>
+                  <p className="text-white font-bold text-2xl drop-shadow-lg">+240% ROI</p>
+                  <p className="text-white/90 text-sm font-medium">{isEN ? "Avg. in 3 months" : "En 3 mois moy."}</p>
                 </motion.div>
               </div>
 
@@ -591,7 +600,7 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
             {t.mandates.items.map((mandate, idx) => (
               <motion.div
                 key={idx}
-                className={`group relative p-8 bg-gradient-to-br ${mandate.gradient} rounded-3xl border ${mandate.borderColor} transition-all ${mandate.highlighted ? 'transform hover:scale-105 border-2' : 'hover:translate-y-[-8px]'}`}
+                className={`group relative p-8 bg-gradient-to-br ${mandate.gradient} backdrop-blur-sm rounded-3xl border-2 ${mandate.borderColor} transition-all ${mandate.highlighted ? 'transform hover:scale-105' : 'hover:translate-y-[-8px]'} ${idx === 0 || idx === 2 ? 'bg-slate-800/50' : 'bg-slate-800/80'}`}
                 variants={fadeInUp}
                 whileHover={{ y: -5 }}
               >
@@ -601,22 +610,22 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
                 </div>
 
                 <h3 className="text-2xl font-bold text-white mb-2">{mandate.title}</h3>
-                <p className={`font-semibold mb-4 text-sm ${idx === 0 ? 'text-yellow-400' : idx === 1 ? 'text-indigo-400' : 'text-green-400'}`}>
+                <p className={`font-semibold mb-4 text-sm ${idx === 0 ? 'text-yellow-300' : idx === 1 ? 'text-indigo-300' : 'text-green-300'}`}>
                   {mandate.tagline}
                 </p>
 
-                <p className="text-slate-300 mb-6 leading-relaxed">
+                <p className="text-slate-200 mb-6 leading-relaxed">
                   {mandate.desc}
                 </p>
 
-                <div className="space-y-2 text-sm text-slate-400 border-t border-white/10 pt-4">
+                <div className="space-y-2 text-sm text-slate-300 border-t border-white/20 pt-4">
                   <p>• <span className="text-white font-semibold">{isEN ? "Duration:" : "Durée:"}</span> {mandate.duration}</p>
                   <p>• <span className="text-white font-semibold">{isEN ? "Deliverables:" : "Livrables:"}</span> {mandate.deliverables}</p>
                 </div>
 
                 {/* Badge */}
                 {mandate.badge && (
-                  <div className={`absolute -top-3 -right-3 px-4 py-2 ${idx === 1 ? 'bg-gradient-to-r from-indigo-500 to-purple-600 animate-pulse' : idx === 0 ? 'bg-yellow-500' : 'bg-green-500'} text-${idx === 1 ? 'white' : 'slate-900'} text-xs font-bold rounded-full shadow-xl ${idx === 0 ? 'rotate-12' : ''}`}>
+                  <div className={`absolute -top-3 -right-3 px-4 py-2 ${idx === 1 ? 'bg-gradient-to-r from-indigo-500 to-purple-600 animate-pulse' : idx === 0 ? 'bg-yellow-500' : 'bg-green-500'} ${idx === 1 ? 'text-white' : 'text-slate-900'} text-xs font-bold rounded-full shadow-xl ${idx === 0 ? 'rotate-12' : ''}`}>
                     {mandate.badge}
                   </div>
                 )}
@@ -705,7 +714,7 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
       </section>
 
       {/* --- PARTNER SECTION --- */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-20 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial="hidden"
@@ -713,23 +722,28 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
             viewport={{ once: true }}
             variants={fadeInUp}
           >
-            <Users className="h-10 w-10 text-purple-600 mx-auto mb-4" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 text-white mb-6">
+              <Users className="h-8 w-8" />
+            </div>
             <h2 className="text-3xl font-bold text-slate-900 mb-4">{t.partner.title}</h2>
             <p className="text-slate-600 mb-10 max-w-2xl mx-auto text-lg">
               {t.partner.text}
             </p>
 
             {/* Partner Card */}
-            <div className="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 inline-flex items-center gap-6 text-left max-w-xl mx-auto hover:shadow-xl transition-shadow">
-              <div className="relative h-20 w-20 flex-shrink-0 rounded-full bg-gradient-to-br from-purple-400 to-indigo-600 flex items-center justify-center text-white text-2xl font-bold">
-                👥
+            <motion.div 
+              className="bg-white p-8 rounded-2xl shadow-lg border-2 border-slate-200 inline-flex items-center gap-6 text-left max-w-xl mx-auto hover:shadow-2xl hover:border-indigo-300 transition-all"
+              whileHover={{ y: -5 }}
+            >
+              <div className="relative h-20 w-20 flex-shrink-0 rounded-full bg-gradient-to-br from-purple-500 via-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                <Users className="h-10 w-10" />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-slate-900">{t.partner.name}</h3>
-                <p className="text-purple-600 text-sm font-bold uppercase mb-2">{t.partner.role}</p>
-                <p className="text-sm text-slate-600">{t.partner.desc}</p>
+                <p className="text-purple-600 text-sm font-bold uppercase mb-2 tracking-wide">{t.partner.role}</p>
+                <p className="text-sm text-slate-600 leading-relaxed">{t.partner.desc}</p>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
