@@ -349,7 +349,7 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
 
             {/* Colonne droite : Image avec effet glassmorphism */}
             <motion.div 
-              className="relative"
+              className="relative pb-12 pr-12"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -369,7 +369,7 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
                 
                 {/* Badge flottant ROI */}
                 <motion.div 
-                  className="absolute -bottom-8 -right-8 px-8 py-5 bg-gradient-to-r from-green-400 via-emerald-500 to-green-400 rounded-2xl shadow-2xl border-4 border-white"
+                  className="absolute -bottom-6 -right-6 px-8 py-5 bg-gradient-to-r from-green-400 via-emerald-500 to-green-400 rounded-2xl shadow-2xl border-4 border-white z-10"
                   animate={{ 
                     rotate: [0, 3, 0],
                     scale: [1, 1.05, 1]
