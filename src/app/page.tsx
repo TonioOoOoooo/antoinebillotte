@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { trackInternalLink } from '@/lib/analytics';
 
 // Icons - Sélection "Terrain" & "Delivery"
 import {
@@ -172,7 +171,7 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <a href="#mandates" onClick={() => trackInternalLink?.('hero_mandates')} className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg transition-all shadow-lg flex items-center justify-center">
+              <a href="#mandates" className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg transition-all shadow-lg flex items-center justify-center">
                 {t.hero.cta} <ArrowRight className="ml-2 h-5 w-5"/>
               </a>
               <a href="#contact" className="px-8 py-4 bg-transparent border border-slate-600 hover:bg-slate-800 text-white font-semibold rounded-lg transition-all flex items-center justify-center">
