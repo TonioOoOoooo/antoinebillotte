@@ -355,15 +355,14 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div className="relative rounded-3xl overflow-hidden backdrop-blur-xl bg-white/10 border border-white/20 p-8 shadow-2xl">
-                <div className="relative w-full h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-indigo-600 to-purple-600">
-                  {/* Placeholder pour l'image hero-transformation.png */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-white/50 text-center">
-                      <Rocket className="h-24 w-24 mx-auto mb-4" />
-                      <p className="text-sm">Image: hero-transformation.png</p>
-                      <p className="text-xs mt-2">Before/After transformation visual</p>
-                    </div>
-                  </div>
+                <div className="relative w-full h-[500px] rounded-2xl overflow-hidden">
+                  <Image
+                    src="/images/hero-transformation.png"
+                    alt="AI Transformation - Before/After"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
                 </div>
                 
                 {/* Badge flottant ROI */}
