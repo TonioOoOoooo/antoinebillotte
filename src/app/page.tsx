@@ -1,13 +1,14 @@
-'use client' 
+'use client'
 
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { trackInternalLink } from '@/lib/analytics';
 
-// Icons - Sélection "Action" & "Delivery"
+// Icons - Sélection "Terrain" & "Delivery"
 import {
   Zap,            // Flash Diagnostic
-  Users,          // Workshops / Adoption
+  Users,          // Workshops / Adoption (Ton énergie A+C)
   LayoutTemplate, // Delivery / Framework
   BrainCircuit,   // Tech Fluency
   ArrowRight,
@@ -17,7 +18,7 @@ import {
   Quote,
   Mail,
   Linkedin,
-  Terminal        // Code culture
+  Terminal        // Ta culture Maker
 } from 'lucide-react';
 
 type FormDataShape = {
@@ -96,13 +97,13 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
     partner: {
       title: isEN ? "Scaling & Change Management" : "Scaling & Conduite du Changement",
       text: isEN 
-        ? "For large-scale deployments requiring deep cultural transformation, I partner with specialized Change Directors."
-        : "Pour les déploiements à grande échelle nécessitant une transformation culturelle profonde, je m'appuie sur des Directeurs du Changement spécialisés.",
-      name: "Robin Pellaton",
-      role: isEN ? "Adoption Partner" : "Adoption Partner",
+        ? "For large-scale deployments requiring deep cultural transformation, I leverage my network of specialized Change Directors."
+        : "Pour les déploiements à grande échelle nécessitant une transformation culturelle profonde, je m'appuie sur mon réseau de Directeurs du Changement spécialisés.",
+      name: "Network Partners",
+      role: isEN ? "Scalable Capacity" : "Capacité Étendue",
       desc: isEN 
-        ? "Expert in User Psychology and large-scale coaching. Ex-Marketing Director."
-        : "Expert en psychologie utilisateur et coaching de masse. Ex-Directeur Marketing."
+        ? "Access to specialized profiles (Legal Ops, HR Change) activated on demand."
+        : "Accès à des profils spécialisés (Legal Ops, HR Change) activés à la demande."
     },
     contact: {
       title: isEN ? "Availability" : "Disponibilité",
@@ -129,6 +130,7 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
+    // Simulation d'envoi
     try {
         const payload = { ...formData, source: 'adoption-architect-landing', locale };
         await fetch(process.env.NEXT_PUBLIC_MAKE_WEBHOOK_URL || '', {
@@ -170,7 +172,7 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <a href="#mandates" className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg transition-all shadow-lg flex items-center justify-center">
+              <a href="#mandates" onClick={() => trackInternalLink?.('hero_mandates')} className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg transition-all shadow-lg flex items-center justify-center">
                 {t.hero.cta} <ArrowRight className="ml-2 h-5 w-5"/>
               </a>
               <a href="#contact" className="px-8 py-4 bg-transparent border border-slate-600 hover:bg-slate-800 text-white font-semibold rounded-lg transition-all flex items-center justify-center">
@@ -314,7 +316,7 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
         </div>
       </section>
 
-      {/* --- PARTNER SECTION (ROBIN) --- */}
+      {/* --- PARTNER SECTION (ROBIN / NETWORK) --- */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Users className="h-10 w-10 text-purple-600 mx-auto mb-4" />
@@ -323,7 +325,7 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
             {t.partner.text}
           </p>
 
-          {/* Robin Card */}
+          {/* Robin Card - OPTIONNEL : Affiche Robin ou juste un texte */}
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 inline-flex items-center gap-6 text-left max-w-xl mx-auto hover:shadow-md transition-shadow">
             <div className="relative h-20 w-20 flex-shrink-0">
                <Image 
