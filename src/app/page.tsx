@@ -144,8 +144,8 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
       title: isEN ? "Why a 'Tech-Fluent' Business Lead?" : "Pourquoi un Lead Business 'Tech-Fluent' ?",
       subtitle: isEN ? "I speak API & P&L" : "Je parle API & P&L",
       text: isEN 
-        ? "I am not a Cloud Architect, but I understand the engine (LLMs, Tokens, APIs). I am not a developer, but I prototype to prove value. My strength is translation: I take your Business needs and turn them into a backlog that IT understands and respects."
-        : "Je ne suis pas Architecte Cloud, mais je comprends le moteur (LLMs, Tokens, APIs). Je ne suis pas développeur, mais je prototype pour prouver la valeur. Ma force est la traduction : je transforme vos besoins Business en un backlog que la DSI comprend et respecte.",
+        ? "20+ years in Business Development at Sony, Mars, Mastercard. I'm not a Cloud Architect, but I understand the engine (LLMs, APIs, Office 365). I'm not a developer, but I build React prototypes and automate with Make/N8N to prove value. My strength: translating C-level needs into IT backlog that tech teams respect."
+        : "20+ ans en Business Development chez Sony, Mars, Mastercard. Je ne suis pas Architecte Cloud, mais je comprends le moteur (LLMs, APIs, Office 365). Je ne suis pas développeur, mais je prototype en React et automatise avec Make/N8N pour prouver la valeur. Ma force : traduire les besoins Direction en backlog IT que les équipes tech respectent.",
       quote: isEN ? "I don't just write slides. I make sure the tools are actually used by real people." : "Je ne fais pas que des slides. Je m'assure que les outils sont réellement utilisés par de vraies personnes."
     },
     partner: {
@@ -369,7 +369,7 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
                 
                 {/* Badge flottant ROI */}
                 <motion.div 
-                  className="absolute -bottom-6 -right-6 px-6 py-4 bg-gradient-to-r from-green-400 to-emerald-500 rounded-2xl shadow-2xl border-2 border-white/30"
+                  className="absolute -bottom-8 -right-8 px-8 py-5 bg-gradient-to-r from-green-400 via-emerald-500 to-green-400 rounded-2xl shadow-2xl border-4 border-white"
                   animate={{ 
                     rotate: [0, 3, 0],
                     scale: [1, 1.05, 1]
@@ -380,18 +380,27 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
                     ease: "easeInOut"
                   }}
                 >
-                  <p className="text-white font-bold text-2xl drop-shadow-lg">+240% ROI</p>
-                  <p className="text-white/90 text-sm font-medium">{isEN ? "Avg. in 3 months" : "En 3 mois moy."}</p>
+                  <p className="text-white font-black text-3xl drop-shadow-lg tracking-tight">+240% ROI</p>
+                  <p className="text-white text-sm font-bold">{isEN ? "Avg. in 3 months" : "En 3 mois moy."}</p>
                 </motion.div>
               </div>
 
               {/* Compétences flottantes */}
               <motion.div 
-                className="absolute -top-4 -left-4 px-4 py-2 bg-white rounded-xl shadow-xl"
+                className="absolute -top-4 -left-4 px-4 py-2 bg-white rounded-xl shadow-xl border-2 border-slate-200"
                 whileHover={{ scale: 1.05 }}
               >
-                <p className="text-sm font-semibold text-gray-700">Tech Stack:</p>
-                <p className="text-xs text-gray-500">Python • Make • APIs</p>
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Tech Stack</p>
+                <p className="text-sm font-bold text-slate-900">React • Make • APIs</p>
+              </motion.div>
+
+              {/* Badge experience grands groupes */}
+              <motion.div 
+                className="absolute -bottom-4 -left-4 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-xl"
+                whileHover={{ scale: 1.05 }}
+              >
+                <p className="text-xs font-bold text-white/80 uppercase tracking-wide">Experience</p>
+                <p className="text-sm font-bold text-white">Sony • Mars • Mastercard</p>
               </motion.div>
             </motion.div>
           </div>
@@ -680,12 +689,17 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
                 </p>
 
                 {/* Tech Stack visualisation */}
-                <div className="flex flex-wrap gap-3">
-                  {['Python', 'Make.com', 'APIs', 'LLMs', 'Tokens'].map((tech) => (
-                    <div key={tech} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 text-sm font-semibold">
-                      {tech}
-                    </div>
-                  ))}
+                <div className="space-y-3">
+                  <p className="text-indigo-400 text-sm font-bold uppercase tracking-wide">
+                    {isEN ? "Tech Ecosystem" : "Écosystème Tech"}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {['React/JS', 'Make.com', 'N8N', 'APIs', 'Office 365', 'Google Cloud', 'AppScript'].map((tech) => (
+                      <div key={tech} className="px-3 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 text-xs font-semibold hover:bg-white/20 transition-colors">
+                        {tech}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
