@@ -1,0 +1,76 @@
+{
+  "hero": {
+    "badge": "AI ADOPTION ARCHITECT & DELIVERY LEAD",
+    "title": "Vos Pilotes IA Bloqués ?",
+    "subtitle": "Je les Transforme en Valeur Mesurable.",
+    "description": "Les entreprises dépensent des millions en licences Microsoft Copilot. Résultat ? 10% d'adoption, ROI invisible. Je débloque les freins avec un diagnostic technique + workshops opérationnels + delivery agile.",
+    "ctaPrimary": "Diagnostic Gratuit (72h)",
+    "ctaSecondary": "Voir les Résultats",
+    "trust": "+15 Directions Juridiques ont débloqué leurs pilotes"
+  },
+  "problem": {
+    "title": "Le Paradoxe Microsoft Copilot",
+    "subtitle": "Vous payez les licences. Vos équipes ne les utilisent pas.",
+    "before": {
+      "label": "SANS ACCOMPAGNEMENT",
+      "adoption": "10%",
+      "roi": "0€",
+      "issues": ["Licences inutilisées", "Équipes frustrées", "Budget gaspillé"]
+    },
+    "after": {
+      "label": "AVEC MON ACCOMPAGNEMENT",
+      "adoption": "87%",
+      "roi": "+240%",
+      "benefits": ["Équipes autonomes", "Gain de 12h/semaine/juriste", "ROI documenté"]
+    }
+  },
+  "mandates": {
+    "title": "Mes 3 Modes d'Intervention",
+    "subtitle": "Du diagnostic express à la transformation complète, j'adapte mon approche à votre maturité",
+    "items": [
+      {
+        "title": "Flash Diagnostic",
+        "tagline": "3 JOURS POUR IDENTIFIER LES FREINS",
+        "desc": "Audit racine de la maturité IA actuelle. Cartographie des points de blocage (Réputation/Légal/Compétences). Livraison d'un Plan d'Action organisationnel & 30 jours pour débloquer la situation.",
+        "duration": "3-5 jours",
+        "deliverables": "Rapport + Roadmap",
+        "badge": "⚡ EXPRESS"
+      },
+      {
+        "title": "Workshops & Activation",
+        "tagline": "LA SOLUTION POUR LES PILOTES BLOQUÉS",
+        "desc": "Ma zone d'excellence: Animation de workshops pratiques pour ancrer les use cases. Sessions 'Train the Trainer'. Création de backlog opérationnel. Création d'un corpus d'amorçage agile pour lancer l'adhésion rapidement.",
+        "duration": "2-4 semaines",
+        "deliverables": "Équipes métier impliquées",
+        "badge": "⭐ RECOMMANDÉ"
+      },
+      {
+        "title": "Delivery Control",
+        "tagline": "LE DÉPLOIEMENT AGILE • 3-6 MOIS",
+        "desc": "Coordination du déploiement: Gestion du backlog. J'instruis vos équipes que je livre avec prompts + Tech pack (gabarits). Tests utilisateurs. Tech pack (gabarits) et pilotage du démarrage de l'héritage du driver.",
+        "duration": "3-6 mois",
+        "deliverables": "Chefs de projets IA • Tech",
+        "badge": "🎯 SCALE"
+      }
+    ]
+  },
+  "usp": {
+    "title": "Pourquoi un Lead Business 'Tech-Fluent' ?",
+    "subtitle": "Je parle API & P&L",
+    "text": "20+ ans en Business Development chez Sony, Mars, Mastercard. Je ne suis pas Architecte Cloud, mais je comprends le moteur (LLMs, APIs, Office 365). Je ne suis pas développeur, mais je prototype en React et automatise avec Make/N8N pour prouver la valeur. Ma force : traduire les besoins Direction en backlog IT que les équipes tech respectent.",
+    "quote": "Je ne fais pas que des slides. Je m'assure que les outils sont réellement utilisés par de vraies personnes."
+  },
+  "partner": {
+    "title": "Scaling & Conduite du Changement",
+    "text": "Pour les déploiements à grande échelle nécessitant une transformation culturelle profonde, je m'appuie sur mon réseau de Directeurs du Changement spécialisés.",
+    "name": "Network Partners",
+    "role": "Capacité Étendue",
+    "desc": "Accès à des profils spécialisés (Legal Ops, HR Change) activés à la demande."
+  },
+  "contact": {
+    "title": "Disponibilité",
+    "text": "Disponible pour missions courtes (Workshops/Diagnostic) ou mandats de Delivery moyen terme (3-6 mois).",
+    "cta": "Me contacter par Email",
+    "linkedin": "Mon Profil LinkedIn"
+  }
+}

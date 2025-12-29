@@ -1,0 +1,76 @@
+{
+  "hero": {
+    "badge": "AI ADOPTION ARCHITECT & DELIVERY LEAD",
+    "title": "Your AI Pilots Stuck?",
+    "subtitle": "I Transform Them into Measurable Value.",
+    "description": "Companies spend millions on Microsoft Copilot licenses. Result? 10% adoption, invisible ROI. I unblock the barriers with technical diagnosis + operational workshops + agile delivery.",
+    "ctaPrimary": "Free Diagnostic (72h)",
+    "ctaSecondary": "See Results",
+    "trust": "Trusted by 15+ Legal Departments"
+  },
+  "problem": {
+    "title": "The Microsoft Copilot Paradox",
+    "subtitle": "You pay for licenses. Your teams don't use them.",
+    "before": {
+      "label": "WITHOUT SUPPORT",
+      "adoption": "10%",
+      "roi": "0€",
+      "issues": ["Unused licenses", "Frustrated teams", "Wasted budget"]
+    },
+    "after": {
+      "label": "WITH MY SUPPORT",
+      "adoption": "87%",
+      "roi": "+240%",
+      "benefits": ["Autonomous teams", "12h/week saved per lawyer", "Documented ROI"]
+    }
+  },
+  "mandates": {
+    "title": "My 3 Intervention Modes",
+    "subtitle": "From express diagnostic to complete transformation, I adapt to your maturity",
+    "items": [
+      {
+        "title": "Flash Diagnostic",
+        "tagline": "3 DAYS TO IDENTIFY BLOCKERS",
+        "desc": "Root audit of current AI maturity. Mapping of blocking points (Reputation/Legal/Skills). Delivery of an organizational Action Plan & 30 days to unblock the situation.",
+        "duration": "3-5 days",
+        "deliverables": "Report + Roadmap",
+        "badge": "⚡ EXPRESS"
+      },
+      {
+        "title": "Workshops & Activation",
+        "tagline": "THE SOLUTION FOR STUCK PILOTS",
+        "desc": "My zone of excellence: Animation of practical workshops to anchor use cases. 'Train the Trainer' sessions. Creation of operational backlog. Creation of an agile priming corpus to quickly launch adoption.",
+        "duration": "2-4 weeks",
+        "deliverables": "Business teams involved",
+        "badge": "⭐ RECOMMENDED"
+      },
+      {
+        "title": "Delivery Control",
+        "tagline": "AGILE DEPLOYMENT • 3-6 MONTHS",
+        "desc": "Deployment coordination: Backlog management. I train your teams that I deliver with prompts + Tech pack (templates). User testing. Tech pack (templates) and piloting of driver handover kickoff.",
+        "duration": "3-6 months",
+        "deliverables": "AI Project Managers • Tech",
+        "badge": "🎯 SCALE"
+      }
+    ]
+  },
+  "usp": {
+    "title": "Why a 'Tech-Fluent' Business Lead?",
+    "subtitle": "I speak API & P&L",
+    "text": "20+ years in Business Development at Sony, Mars, Mastercard. I'm not a Cloud Architect, but I understand the engine (LLMs, APIs, Office 365). I'm not a developer, but I build React prototypes and automate with Make/N8N to prove value. My strength: translating C-level needs into IT backlog that tech teams respect.",
+    "quote": "I don't just write slides. I make sure the tools are actually used by real people."
+  },
+  "partner": {
+    "title": "Scaling & Change Management",
+    "text": "For large-scale deployments requiring deep cultural transformation, I leverage my network of specialized Change Directors.",
+    "name": "Network Partners",
+    "role": "Scalable Capacity",
+    "desc": "Access to specialized profiles (Legal Ops, HR Change) activated on demand."
+  },
+  "contact": {
+    "title": "Availability",
+    "text": "Available for short-term missions (Workshops/Diagnostic) or mid-term Delivery mandates (3-6 months).",
+    "cta": "Contact me",
+    "linkedin": "My LinkedIn Profile"
+  }
+}

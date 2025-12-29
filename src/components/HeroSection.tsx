@@ -5,6 +5,7 @@ import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Sparkles, ArrowRight } from 'lucide-react';
+import { useAnimationConfig } from '@/hooks/useMotionPreference';
 
 type HeroContent = {
   badge: string;
@@ -26,17 +27,19 @@ export default function HeroSection({ content, isEN }: HeroSectionProps) {
   const heroY = useTransform(scrollY, [0, 500], [0, 150]);
   const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
 
+  // Détection mobile et préférence d'animation (accessibilité)
+  const { shouldAnimate, particleCount } = useAnimationConfig();
+
   // Générer les positions des particules une seule fois
-   
+  // Nombre adapté : 30 sur desktop, 10 sur mobile, 0 si prefers-reduced-motion
   const particles = useMemo(() =>
-     
-    Array.from({ length: 30 }, () => ({
+    Array.from({ length: particleCount }, () => ({
       left: Math.random() * 100,
       top: Math.random() * 100,
       duration: 3 + Math.random() * 2,
       delay: Math.random() * 2,
     })),
-    []
+    [particleCount]
   );
 
   const fadeInUp = {
@@ -63,28 +66,30 @@ export default function HeroSection({ content, isEN }: HeroSectionProps) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(59,130,246,0.1),transparent_50%)]"></div>
       </div>
 
-      {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {particles.map((particle, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-white/30 rounded-full"
-            style={{
-              left: `${particle.left}%`,
-              top: `${particle.top}%`,
-            }}
-            animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: particle.duration,
-              repeat: Infinity,
-              delay: particle.delay,
-            }}
-          />
-        ))}
-      </div>
+      {/* Floating particles - Adapté selon appareil et préférences accessibilité */}
+      {shouldAnimate && particles.length > 0 && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {particles.map((particle, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-white/30 rounded-full"
+              style={{
+                left: `${particle.left}%`,
+                top: `${particle.top}%`,
+              }}
+              animate={{
+                y: [0, -100, 0],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration: particle.duration,
+                repeat: Infinity,
+                delay: particle.delay,
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Grid overlay */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
@@ -135,15 +140,17 @@ export default function HeroSection({ content, isEN }: HeroSectionProps) {
               <a
                 href="#diagnostic"
                 className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl shadow-2xl hover:shadow-cyan-500/50 transition-all flex items-center justify-center"
+                aria-label={isEN ? "Request free diagnostic in 72 hours" : "Demander un diagnostic gratuit en 72 heures"}
               >
-                {content.ctaPrimary}
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <span>{content.ctaPrimary}</span>
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </a>
               <a
                 href="#results"
                 className="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-xl border border-white/20 hover:bg-white/20 transition-all flex items-center justify-center"
+                aria-label={isEN ? "See transformation results" : "Voir les résultats de transformation"}
               >
-                {content.ctaSecondary}
+                <span>{content.ctaSecondary}</span>
               </a>
             </motion.div>
 
@@ -195,13 +202,18 @@ export default function HeroSection({ content, isEN }: HeroSectionProps) {
           >
             <div className="relative rounded-3xl overflow-hidden backdrop-blur-xl bg-white/5 border-2 border-white/30 p-6 shadow-2xl">
               <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-inner">
-                <Image
-                  src="/images/hero-transformation.png"
-                  alt="AI Transformation - Before/After"
-                  fill
-                  className="object-cover"
-                  priority
-                />
+                <picture className="w-full h-full">
+                  {/* WebP optimisé (300-400KB au lieu de 2.5MB) */}
+                  <source srcSet="/images/optimized/hero-transformation.webp" type="image/webp" />
+                  {/* Fallback PNG pour anciens navigateurs */}
+                  <Image
+                    src="/images/hero-transformation.png"
+                    alt="Tableau de bord comparatif : transformation IA avant et après accompagnement, montrant +240% ROI"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </picture>
                 {/* Overlay gradient subtil pour effet premium */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent pointer-events-none"></div>
               </div>
