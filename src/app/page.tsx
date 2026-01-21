@@ -99,7 +99,7 @@ export default function VillaLandingPage() {
             </h1>
             <p className="text-lg md:text-xl text-slate-200 mb-8 max-w-2xl mx-auto font-light">
               265m² de luxe et de sérénité. Piscine privée, 6 chambres, garage.
-              Le calme absolu à 7 min de la Comédie.
+              Le calme absolu à 5 min de la Comédie.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -338,10 +338,10 @@ export default function VillaLandingPage() {
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <div className="space-y-4">
               <h3 className="font-bold text-lg mb-4">À proximité</h3>
-              <LocationItem icon={MapPin} label="Place de la Comédie" distance="7 min à pied" />
-              <LocationItem icon={MapPin} label="Gare Saint-Roch" distance="5 min en voiture" />
-              <LocationItem icon={Waves} label="Plages du Grau-du-Roi" distance="25 min" />
-              <LocationItem icon={UtensilsCrossed} label="Restaurants & Bars" distance="3 min" />
+              <LocationItem icon={MapPin} label="Place de la Comédie" distance="5 min à pied" />
+              <LocationItem icon={MapPin} label="Gare Saint-Roch" distance="5 min à pied" />
+              <LocationItem icon={Waves} label="Plages de Carnaud" distance="25 min en voiture" />
+              <LocationItem icon={UtensilsCrossed} label="Restaurants & Bars" distance="5 min à pied" />
             </div>
 
             <div className="space-y-4">
