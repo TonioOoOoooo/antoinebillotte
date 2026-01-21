@@ -48,10 +48,10 @@ export default function VillaLandingPage() {
       {/* --- NAVIGATION --- */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/profile" className="flex items-center gap-2 text-slate-900 hover:text-emerald-600 transition-colors">
-            <User className="w-5 h-5" />
-            <span className="font-bold">À propos</span>
-          </Link>
+          <div className="flex items-center gap-2 text-slate-900">
+            <Waves className="w-5 h-5 text-emerald-600" />
+            <span className="font-bold text-emerald-600">maisonmontpellier.fr</span>
+          </div>
           <Link
             href={AIRBNB_URL}
             target="_blank"
@@ -136,11 +136,11 @@ export default function VillaLandingPage() {
         </motion.div>
       </section>
 
-      {/* --- STATS / FEATURES (Sticky) --- */}
-      <section className="py-12 border-b border-slate-200 bg-white sticky top-16 z-20 shadow-sm backdrop-blur-md bg-white/95" role="region" aria-label="Caractéristiques principales">
+      {/* --- STATS / FEATURES --- */}
+      <section className="py-8 md:py-12 border-b border-slate-200 bg-white md:sticky md:top-16 z-20 shadow-sm backdrop-blur-md bg-white/95" role="region" aria-label="Caractéristiques principales">
         <div className="container mx-auto px-4">
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 text-center"
+            className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 md:gap-6 text-center"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
