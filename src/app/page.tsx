@@ -23,7 +23,8 @@ import {
 
 // --- CONFIGURATION ---
 const AIRBNB_URL = "https://www.airbnb.fr/h/villa-exception-montpellier";
-const ABRITEL_URL = ""; // Ajouter le lien Abritel si disponible
+const ABRITEL_URL = "https://www.abritel.fr/location-vacances/p2582877?dateless=true";
+const LEBONCOIN_URL = "https://www.leboncoin.fr/ad/locations_saisonnieres/3018502383";
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 20 },
@@ -275,15 +276,32 @@ export default function VillaLandingPage() {
           <div className="absolute top-0 left-0 w-64 h-64 bg-emerald-500/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" aria-hidden="true"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" aria-hidden="true"></div>
 
-          <div className="relative z-10 max-w-2xl mx-auto space-y-6">
+          <div className="relative z-10 max-w-4xl mx-auto space-y-6">
             <div className="flex justify-center gap-1 mb-4" role="img" aria-label="Note 5 étoiles sur 5">
               {[1,2,3,4,5].map(i => <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" aria-hidden="true" />)}
             </div>
-            <h3 id="avis-title" className="text-3xl font-bold">"Exceptionnel 10/10"</h3>
-            <blockquote className="text-emerald-100 text-lg italic">
-              "Une perle rare : l'idéal pour des grillades en plein air et en toute décontraction. Maison magnifique, parfaitement équipée. Les hôtes sont aux petits soins."
+            <h3 id="avis-title" className="text-3xl font-bold">"Vacances parfaites !"</h3>
+            <blockquote className="text-emerald-100 text-base md:text-lg leading-relaxed text-left max-w-3xl mx-auto">
+              <p className="mb-4">
+                "Superbe séjour ensoleillé, superbe villa, superbes prestations et superbe relation avec les propriétaires du bien : toujours aux petits soins, très attentionnés avec leurs convives et une organisation sans faille de leur part !"
+              </p>
+              <p className="mb-4">
+                "Maison vraiment idéalement située en termes de situation géographique, car en plein centre de l'ensoleillée ville de Montpellier (toute proche du quartier Antigone et donc de toutes commodités !)"
+              </p>
+              <p className="mb-4">
+                "Pour résumer, un cadre absolument idéal pour des vacances parfaitement réussies en familles. Que demander de plus ?! Nous avons vraiment apprécié la très grande disponibilité d'Agathe dont les explications et conseils en tous genres furent très complets et grandement utiles."
+              </p>
+              <p className="mb-4">
+                "Les enfants (tout comme les parents d'ailleurs) se sont régalés avec l'ensemble des prestations proposées (notamment et entre de nombreuses autres : la cuisine extérieure, la piscine entretenue quotidiennement et ce d'ailleurs, sans aucun dérangement d'aucune sorte pour les locataires etc.)."
+              </p>
+              <p className="mb-4">
+                "Vous apprécierez aussi la présence de Lulu, l'adorable tortue qui a émerveillé tant les petits que les grands."
+              </p>
+              <p>
+                "En bref, un véritable havre de paix, et nous y retournerions les yeux fermés ! Encore merci à Agathe pour sa très grande gentillesse et l'attention apportée avec une systématique bienveillance."
+              </p>
             </blockquote>
-            <cite className="text-sm text-emerald-300 not-italic">— Famille Martin, Août 2024</cite>
+            <cite className="text-sm text-emerald-300 not-italic">— Camille, Paris • Juillet 2021</cite>
 
             <div className="pt-8 border-t border-emerald-700/50 grid md:grid-cols-3 gap-6 text-sm text-emerald-100">
               <div className="flex flex-col items-center gap-2">
@@ -296,7 +314,7 @@ export default function VillaLandingPage() {
               </div>
               <div className="flex flex-col items-center gap-2">
                 <Info className="w-6 h-6 text-emerald-400" aria-hidden="true" />
-                <span className="font-semibold">Animaux sur place (chats)</span>
+                <span className="font-semibold">Présence de Lulu la tortue 🐢</span>
               </div>
             </div>
           </div>
@@ -337,6 +355,43 @@ export default function VillaLandingPage() {
         </div>
       </section>
 
+      {/* --- CONTACT DIRECT --- */}
+      <section className="py-20 bg-slate-100">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={FADE_UP}
+          className="container mx-auto px-4 max-w-3xl"
+        >
+          <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Location en direct</h2>
+            <p className="text-lg text-slate-600 mb-8">
+              Possibilité de louer directement sans commission. Contactez-nous pour discuter de votre projet !
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="flex flex-col items-center gap-2 p-4 bg-slate-50 rounded-xl">
+                <p className="font-bold text-slate-900">Agathe Billotte</p>
+                <a href="tel:+33645419495" className="text-emerald-600 font-semibold text-lg hover:underline">
+                  06 45 41 94 95
+                </a>
+              </div>
+              <div className="flex flex-col items-center gap-2 p-4 bg-slate-50 rounded-xl">
+                <p className="font-bold text-slate-900">Antoine Billotte</p>
+                <a href="tel:+33784261944" className="text-emerald-600 font-semibold text-lg hover:underline">
+                  07 84 26 19 44
+                </a>
+              </div>
+            </div>
+
+            <p className="text-sm text-slate-500">
+              Réponse rapide • Conseils personnalisés • Tarifs préférentiels pour location longue durée
+            </p>
+          </div>
+        </motion.div>
+      </section>
+
       {/* --- CTA FINAL --- */}
       <section className="py-20 text-center bg-gradient-to-b from-slate-50 to-white">
         <motion.div
@@ -346,12 +401,12 @@ export default function VillaLandingPage() {
           variants={FADE_UP}
           className="space-y-8"
         >
-          <h2 className="text-4xl md:text-5xl font-bold">Prêt pour votre séjour à Montpellier ?</h2>
+          <h2 className="text-4xl md:text-5xl font-bold">Réserver en ligne</h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Réservez dès maintenant votre villa d'exception. Disponible toute l'année pour vos vacances, événements familiaux ou séjours professionnels.
+            Réservez dès maintenant votre villa d'exception sur nos plateformes partenaires. Paiement sécurisé et annulation flexible.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
             <Link
               href={AIRBNB_URL}
               target="_blank"
@@ -363,21 +418,32 @@ export default function VillaLandingPage() {
               <ArrowRight className="w-6 h-6" aria-hidden="true" />
             </Link>
 
-            {ABRITEL_URL && (
-              <Link
-                href={ABRITEL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-white text-slate-900 px-10 py-5 rounded-full text-xl font-bold border-2 border-slate-900 hover:bg-slate-50 transition-all"
-                aria-label="Réserver la villa sur Abritel"
-              >
-                Réserver sur Abritel
-                <ArrowRight className="w-6 h-6" aria-hidden="true" />
-              </Link>
-            )}
+            <Link
+              href={ABRITEL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-white text-slate-900 px-10 py-5 rounded-full text-xl font-bold border-2 border-slate-900 hover:bg-slate-50 transition-all shadow-xl hover:-translate-y-1"
+              aria-label="Réserver la villa sur Abritel"
+            >
+              Réserver sur Abritel
+              <ArrowRight className="w-6 h-6" aria-hidden="true" />
+            </Link>
+
+            <Link
+              href={LEBONCOIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-emerald-600 text-white px-10 py-5 rounded-full text-xl font-bold hover:bg-emerald-700 transition-all shadow-xl hover:-translate-y-1"
+              aria-label="Réserver la villa sur Leboncoin"
+            >
+              Réserver sur Leboncoin
+              <ArrowRight className="w-6 h-6" aria-hidden="true" />
+            </Link>
           </div>
 
-          <p className="text-sm text-slate-500">Réservation sécurisée • Annulation flexible • Paiement en ligne</p>
+          <p className="text-sm text-slate-500">
+            Aussi disponible sur Booking.com (lien à venir)
+          </p>
         </motion.div>
       </section>
 
@@ -387,7 +453,7 @@ export default function VillaLandingPage() {
           <p className="text-slate-400">
             © {new Date().getFullYear()} Villa Oasis Montpellier - Agathe & Antoine
           </p>
-          <div className="flex justify-center gap-6 text-sm text-slate-400">
+          <div className="flex justify-center gap-4 text-sm text-slate-400 flex-wrap">
             <Link href="/profile" className="hover:text-white transition-colors">
               À propos d'Antoine
             </Link>
@@ -395,6 +461,23 @@ export default function VillaLandingPage() {
             <Link href={AIRBNB_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
               Airbnb
             </Link>
+            <span>•</span>
+            <Link href={ABRITEL_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              Abritel
+            </Link>
+            <span>•</span>
+            <Link href={LEBONCOIN_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              Leboncoin
+            </Link>
+          </div>
+          <div className="flex justify-center gap-4 text-xs text-slate-500">
+            <a href="tel:+33645419495" className="hover:text-slate-300 transition-colors">
+              📞 Agathe: 06 45 41 94 95
+            </a>
+            <span>•</span>
+            <a href="tel:+33784261944" className="hover:text-slate-300 transition-colors">
+              📞 Antoine: 07 84 26 19 44
+            </a>
           </div>
         </div>
       </footer>
