@@ -14,7 +14,6 @@ import MandatesSection from '@/components/MandatesSection';
 import USPSection from '@/components/USPSection';
 import PartnerSection from '@/components/PartnerSection';
 import ContactSection from '@/components/ContactSection';
-import VillaBanner from '@/components/VillaBanner';
 
 const AdoptionArchitectPage = ({ locale = 'fr' }) => {
   const isEN = locale === 'en';
@@ -143,7 +142,6 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
         <ProblemSection content={t.problem} isEN={isEN} />
         <MandatesSection content={t.mandates} isEN={isEN} />
         <USPSection content={t.usp} isEN={isEN} />
-        <VillaBanner isEN={isEN} />
         <PartnerSection content={t.partner} />
       </main>
       <ContactSection content={t.contact} />
