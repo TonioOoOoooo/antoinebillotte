@@ -14,6 +14,7 @@ import MandatesSection from '@/components/MandatesSection';
 import USPSection from '@/components/USPSection';
 import PartnerSection from '@/components/PartnerSection';
 import ContactSection from '@/components/ContactSection';
+import VillaBanner from '@/components/VillaBanner';
 
 const AdoptionArchitectPage = ({ locale = 'fr' }) => {
   const isEN = locale === 'en';
@@ -138,10 +139,13 @@ const AdoptionArchitectPage = ({ locale = 'fr' }) => {
   return (
     <div className="bg-slate-50 min-h-screen font-sans text-slate-900 selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
       <HeroSection content={t.hero} isEN={isEN} />
-      <ProblemSection content={t.problem} isEN={isEN} />
-      <MandatesSection content={t.mandates} isEN={isEN} />
-      <USPSection content={t.usp} isEN={isEN} />
-      <PartnerSection content={t.partner} />
+      <main role="main">
+        <ProblemSection content={t.problem} isEN={isEN} />
+        <MandatesSection content={t.mandates} isEN={isEN} />
+        <USPSection content={t.usp} isEN={isEN} />
+        <VillaBanner isEN={isEN} />
+        <PartnerSection content={t.partner} />
+      </main>
       <ContactSection content={t.contact} />
     </div>
   );
