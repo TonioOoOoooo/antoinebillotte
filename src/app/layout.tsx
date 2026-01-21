@@ -13,24 +13,42 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Antoine Billotte | AI Adoption Architect & Delivery Lead",
-  description: "Expert en adoption IA et Microsoft Copilot. Je transforme vos pilotes IA bloqués en valeur mesurable avec +240% ROI moyen. Diagnostic gratuit en 72h.",
-  keywords: ["AI Adoption", "Microsoft Copilot", "IA", "Transformation digitale", "Consultant IA", "ROI IA"],
-  authors: [{ name: "Antoine Billotte" }],
-  creator: "Antoine Billotte",
+  title: "Villa d'Exception Montpellier | 265m² Piscine Privée 6 Chambres",
+  description: "Louez une villa de luxe avec piscine privée à Montpellier centre. 265m², 6 chambres, 12 voyageurs. Jardin tropical, garage, 7 min de la Comédie. Idéal familles & groupes.",
+  keywords: [
+    "location villa Montpellier",
+    "villa piscine Montpellier",
+    "location vacances Montpellier",
+    "maison avec piscine Montpellier",
+    "villa luxe Montpellier centre",
+    "location grande maison Montpellier",
+    "Airbnb Montpellier",
+    "villa 6 chambres Montpellier",
+    "location saisonnière Montpellier",
+    "villa familiale Montpellier"
+  ],
+  authors: [{ name: "Agathe & Antoine" }],
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    alternateLocale: ["en_US"],
     url: "https://antoinebillotte.com",
-    title: "Antoine Billotte | AI Adoption Architect",
-    description: "Transformez vos pilotes IA en valeur mesurable. +240% ROI moyen en 3 mois.",
-    siteName: "Antoine Billotte - AI Adoption Architect",
+    title: "Villa Oasis Montpellier | Piscine Privée & Jardin Tropical",
+    description: "265m² de luxe en plein centre de Montpellier. Piscine, 6 chambres, jardin tropical. Parfait pour 12 voyageurs.",
+    siteName: "Villa Oasis Montpellier",
+    images: [
+      {
+        url: "https://antoinebillotte.com/images/villa/hero-pool.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Villa avec piscine privée Montpellier"
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Antoine Billotte | AI Adoption Architect",
-    description: "Expert en adoption IA et Microsoft Copilot. ROI garanti.",
+    title: "Villa Oasis Montpellier | Location de Luxe",
+    description: "265m², piscine privée, 6 chambres. Le paradis urbain à Montpellier.",
+    images: ["https://antoinebillotte.com/images/villa/hero-pool.jpg"]
   },
   robots: {
     index: true,
@@ -40,6 +58,9 @@ export const metadata: Metadata = {
       follow: true,
     },
   },
+  alternates: {
+    canonical: "https://antoinebillotte.com"
+  },
 };
 
 export default function RootLayout({
@@ -48,10 +69,96 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* JSON-LD Structured Data pour le SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "VacationRental",
+              "name": "Villa Oasis Montpellier",
+              "description": "Villa d'architecte de 265m² avec piscine privée, jardin tropical, 6 chambres pour 12 voyageurs au cœur de Montpellier.",
+              "image": [
+                "https://antoinebillotte.com/images/villa/hero-pool.jpg",
+                "https://antoinebillotte.com/images/villa/salon.jpg",
+                "https://antoinebillotte.com/images/villa/cuisine.jpg"
+              ],
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Montpellier",
+                "addressRegion": "Occitanie",
+                "postalCode": "34000",
+                "addressCountry": "FR"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 43.610769,
+                "longitude": 3.876716
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "5.0",
+                "reviewCount": "45",
+                "bestRating": "5",
+                "worstRating": "1"
+              },
+              "amenityFeature": [
+                {
+                  "@type": "LocationFeatureSpecification",
+                  "name": "Piscine privée",
+                  "value": true
+                },
+                {
+                  "@type": "LocationFeatureSpecification",
+                  "name": "Jardin tropical",
+                  "value": true
+                },
+                {
+                  "@type": "LocationFeatureSpecification",
+                  "name": "Garage privé",
+                  "value": true
+                },
+                {
+                  "@type": "LocationFeatureSpecification",
+                  "name": "Climatisation",
+                  "value": true
+                },
+                {
+                  "@type": "LocationFeatureSpecification",
+                  "name": "Wifi haut débit",
+                  "value": true
+                },
+                {
+                  "@type": "LocationFeatureSpecification",
+                  "name": "Cuisine équipée",
+                  "value": true
+                }
+              ],
+              "numberOfBedrooms": 6,
+              "numberOfBathroomsTotal": 4,
+              "floorSize": {
+                "@type": "QuantitativeValue",
+                "value": 265,
+                "unitCode": "MTK"
+              },
+              "occupancy": {
+                "@type": "QuantitativeValue",
+                "maxValue": 12
+              },
+              "petsAllowed": false,
+              "url": "https://antoinebillotte.com",
+              "landlord": {
+                "@type": "Person",
+                "name": "Agathe & Antoine",
+                "description": "Superhôtes Airbnb expérimentés"
+              }
+            })
+          }}
+        />
         {children}
       </body>
     </html>
