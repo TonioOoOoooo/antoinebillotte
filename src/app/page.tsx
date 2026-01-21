@@ -24,6 +24,7 @@ import {
 // --- CONFIGURATION ---
 const AIRBNB_URL = "https://www.airbnb.fr/h/villa-exception-montpellier";
 const ABRITEL_URL = "https://www.abritel.fr/location-vacances/p2582877?dateless=true";
+const LEBONCOIN_URL = "https://www.leboncoin.fr/ad/locations_saisonnieres/3018502383";
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 20 },
@@ -405,7 +406,7 @@ export default function VillaLandingPage() {
             Réservez dès maintenant votre villa d'exception sur nos plateformes partenaires. Paiement sécurisé et annulation flexible.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
             <Link
               href={AIRBNB_URL}
               target="_blank"
@@ -427,10 +428,21 @@ export default function VillaLandingPage() {
               Réserver sur Abritel
               <ArrowRight className="w-6 h-6" aria-hidden="true" />
             </Link>
+
+            <Link
+              href={LEBONCOIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-emerald-600 text-white px-10 py-5 rounded-full text-xl font-bold hover:bg-emerald-700 transition-all shadow-xl hover:-translate-y-1"
+              aria-label="Réserver la villa sur Leboncoin"
+            >
+              Réserver sur Leboncoin
+              <ArrowRight className="w-6 h-6" aria-hidden="true" />
+            </Link>
           </div>
 
           <p className="text-sm text-slate-500">
-            Aussi disponible sur Booking.com et Leboncoin (liens à venir)
+            Aussi disponible sur Booking.com (lien à venir)
           </p>
         </motion.div>
       </section>
@@ -452,6 +464,10 @@ export default function VillaLandingPage() {
             <span>•</span>
             <Link href={ABRITEL_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
               Abritel
+            </Link>
+            <span>•</span>
+            <Link href={LEBONCOIN_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              Leboncoin
             </Link>
           </div>
           <div className="flex justify-center gap-4 text-xs text-slate-500">
