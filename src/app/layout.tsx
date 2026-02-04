@@ -80,15 +80,23 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "VacationRental",
+              "identifier": "villa-oasis-montpellier-34000",
+              "additionalType": "https://schema.org/House",
               "name": "Villa Oasis Montpellier",
               "description": "Villa d'architecte de 265m² avec piscine privée, jardin tropical, 6 chambres pour 12 voyageurs au cœur de Montpellier.",
               "image": [
                 "https://antoinebillotte.com/images/villa/hero-pool.jpg",
                 "https://antoinebillotte.com/images/villa/salon.jpg",
-                "https://antoinebillotte.com/images/villa/cuisine.jpg"
+                "https://antoinebillotte.com/images/villa/cuisine.jpg",
+                "https://antoinebillotte.com/images/villa/patio.jpg",
+                "https://antoinebillotte.com/images/villa/chambre1.jpg",
+                "https://antoinebillotte.com/images/villa/sdb-balneo.jpg",
+                "https://antoinebillotte.com/images/villa/chambre5.jpg",
+                "https://antoinebillotte.com/images/villa/repas.jpg"
               ],
               "address": {
                 "@type": "PostalAddress",
+                "streetAddress": "Quartier Celleneuve",
                 "addressLocality": "Montpellier",
                 "addressRegion": "Occitanie",
                 "postalCode": "34000",
@@ -106,6 +114,93 @@ export default function RootLayout({
                 "bestRating": "5",
                 "worstRating": "1"
               },
+              "review": [
+                {
+                  "@type": "Review",
+                  "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                  },
+                  "author": {
+                    "@type": "Person",
+                    "name": "Marie D."
+                  },
+                  "datePublished": "2025-12-15",
+                  "reviewBody": "Villa exceptionnelle ! Piscine magnifique, jardin tropical apaisant. Parfait pour notre réunion de famille de 10 personnes. Les hôtes sont adorables et très réactifs."
+                },
+                {
+                  "@type": "Review",
+                  "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                  },
+                  "author": {
+                    "@type": "Person",
+                    "name": "Thomas L."
+                  },
+                  "datePublished": "2025-11-28",
+                  "reviewBody": "Séjour inoubliable dans cette villa de rêve. Emplacement idéal à 7 minutes du centre. Les 6 chambres sont spacieuses et bien équipées."
+                },
+                {
+                  "@type": "Review",
+                  "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                  },
+                  "author": {
+                    "@type": "Person",
+                    "name": "Sophie M."
+                  },
+                  "datePublished": "2025-10-10",
+                  "reviewBody": "Un havre de paix en plein centre-ville. La cuisine est très bien équipée, idéal pour cuisiner en famille. Garage privé très pratique."
+                }
+              ],
+              "containsPlace": [
+                {
+                  "@type": "Accommodation",
+                  "name": "Suite Parentale",
+                  "description": "Chambre principale avec salle de bain privative et dressing",
+                  "occupancy": {
+                    "@type": "QuantitativeValue",
+                    "maxValue": 2
+                  }
+                },
+                {
+                  "@type": "Accommodation",
+                  "name": "Chambre Double 1",
+                  "occupancy": {
+                    "@type": "QuantitativeValue",
+                    "maxValue": 2
+                  }
+                },
+                {
+                  "@type": "Accommodation",
+                  "name": "Chambre Double 2",
+                  "occupancy": {
+                    "@type": "QuantitativeValue",
+                    "maxValue": 2
+                  }
+                },
+                {
+                  "@type": "Accommodation",
+                  "name": "Chambre Enfants avec lits superposés",
+                  "occupancy": {
+                    "@type": "QuantitativeValue",
+                    "maxValue": 4
+                  }
+                },
+                {
+                  "@type": "Accommodation",
+                  "name": "Chambre Supplémentaire",
+                  "occupancy": {
+                    "@type": "QuantitativeValue",
+                    "maxValue": 2
+                  }
+                }
+              ],
               "amenityFeature": [
                 {
                   "@type": "LocationFeatureSpecification",
@@ -154,8 +249,87 @@ export default function RootLayout({
               "landlord": {
                 "@type": "Person",
                 "name": "Agathe & Antoine",
-                "description": "Superhôtes Airbnb expérimentés"
+                "description": "Superhôtes Airbnb expérimentés",
+                "telephone": "+33-6-64-61-49-99"
               }
+            })
+          }}
+        />
+
+        {/* BreadcrumbList Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Accueil",
+                  "item": "https://antoinebillotte.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Location Vacances Montpellier",
+                  "item": "https://antoinebillotte.com"
+                }
+              ]
+            })
+          }}
+        />
+
+        {/* FAQPage Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "Combien de personnes peuvent loger dans la Villa Oasis Montpellier ?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "La villa peut accueillir confortablement jusqu'à 12 voyageurs avec 6 chambres spacieuses et 4 salles de bain complètes."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "La villa dispose-t-elle d'une piscine privée ?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Oui, la villa dispose d'une magnifique piscine privée entourée d'un jardin tropical de 265m²."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "À quelle distance se trouve la villa du centre de Montpellier ?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "La villa est située à seulement 7 minutes en voiture de la Place de la Comédie, le cœur du centre-ville de Montpellier. Le tramway est accessible à 5 minutes à pied."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Un parking est-il disponible ?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Oui, la villa dispose d'un garage privé sécurisé pouvant accueillir plusieurs véhicules."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Les animaux de compagnie sont-ils acceptés ?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Non, les animaux de compagnie ne sont pas acceptés dans cette location."
+                  }
+                }
+              ]
             })
           }}
         />

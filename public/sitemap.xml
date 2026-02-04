@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Page principale - Location Villa Montpellier -->
+  <url>
+    <loc>https://antoinebillotte.com/</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+
+    <!-- Images pour résultats enrichis Google Images -->
+    <image:image>
+      <image:loc>https://antoinebillotte.com/images/villa/hero-pool.jpg</image:loc>
+      <image:title>Villa avec piscine privée Montpellier</image:title>
+      <image:caption>Location villa de luxe 265m² avec piscine privée à Montpellier centre</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://antoinebillotte.com/images/villa/salon.jpg</image:loc>
+      <image:title>Salon spacieux villa Montpellier</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://antoinebillotte.com/images/villa/cuisine.jpg</image:loc>
+      <image:title>Cuisine équipée villa luxe Montpellier</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://antoinebillotte.com/images/villa/patio.jpg</image:loc>
+      <image:title>Patio extérieur villa Montpellier</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://antoinebillotte.com/images/villa/chambre1.jpg</image:loc>
+      <image:title>Suite parentale villa Montpellier</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://antoinebillotte.com/images/villa/sdb-balneo.jpg</image:loc>
+      <image:title>Salle de bain balnéo villa Montpellier</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://antoinebillotte.com/images/villa/chambre5.jpg</image:loc>
+      <image:title>Chambre enfants villa Montpellier</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://antoinebillotte.com/images/villa/repas.jpg</image:loc>
+      <image:title>Espace repas villa Montpellier</image:title>
+    </image:image>
+  </url>
+
+  <!-- Page profil Antoine -->
+  <url>
+    <loc>https://antoinebillotte.com/profile</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>
