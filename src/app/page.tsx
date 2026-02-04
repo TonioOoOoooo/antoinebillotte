@@ -336,11 +336,11 @@ export default function VillaLandingPage() {
               <MapPin className="w-8 h-8 inline-block text-emerald-600 mr-2" aria-hidden="true" />
               Location Vacances Montpellier Centre - Emplacement Premium
             </h2>
-            <p className="text-lg text-slate-600">
-              <strong>Situation exceptionnelle</strong> au cœur de Montpellier, entre les quartiers Antigone et Port Marianne.
-              Proche de toutes commodités : tram ligne 1 à 3 min, Gare Saint-Roch à 5 min, plages méditerranéennes à 25 min en voiture.
-              Parfait pour visiter Montpellier et profiter de la Méditerranée.
-            </p>
+<p className="text-lg text-slate-600">
+  <strong>Situation exceptionnelle</strong> au cœur de Montpellier, entre le calme d'Antigone, Port Marianne et l'effervescence de l'Écusson.
+  Proche de toutes commodités : tram ligne 1 à 3 min, Gare Saint-Roch à 5 min, et plages méditerranéennes à 25 min en voiture.
+  Un emplacement stratégique à deux pas du centre historique et des principaux axes de transport.
+</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
