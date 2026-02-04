@@ -19,7 +19,9 @@ import {
   User,
   Wifi,
   Tv,
-  UtensilsCrossed
+  UtensilsCrossed,
+  Share2,
+  Mail
 } from 'lucide-react';
 
 // --- CONFIGURATION ---
@@ -57,6 +59,11 @@ export default function VillaLandingPage() {
     []
   );
 
+  const shareUrl = useMemo(() => {
+    if (typeof window === 'undefined') return 'https://maisonmontpellier.fr/';
+    return window.location.href;
+  }, []);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 text-slate-900 selection:bg-emerald-200 selection:text-emerald-900">
 
@@ -68,11 +75,11 @@ export default function VillaLandingPage() {
             <span className="font-semibold tracking-tight text-emerald-700">maisonmontpellier.fr</span>
           </div>
           <Link
-            href={AIRBNB_URL}
+            href={LEBONCOIN_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-gradient-to-r from-emerald-600 to-teal-500 text-white px-6 py-2.5 rounded-full font-semibold hover:from-emerald-700 hover:to-teal-600 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-            aria-label="Réserver la villa sur Airbnb"
+            aria-label="Réserver la villa sur Leboncoin"
           >
             Réserver
           </Link>
@@ -111,11 +118,11 @@ export default function VillaLandingPage() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href={AIRBNB_URL}
+                  href={LEBONCOIN_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group bg-gradient-to-r from-white via-white to-emerald-50 text-slate-900 px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
-                  aria-label="Voir les disponibilités de la villa sur Airbnb"
+                  aria-label="Voir les disponibilités de la villa sur Leboncoin"
                 >
                   Voir les disponibilités
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
@@ -271,11 +278,11 @@ export default function VillaLandingPage() {
 
           <div className="mt-12 text-center">
             <Link
-              href={AIRBNB_URL}
+              href={LEBONCOIN_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="text-emerald-600 font-semibold hover:underline inline-flex items-center gap-1"
-              aria-label="Voir toutes les photos des 6 chambres sur Airbnb"
+              aria-label="Voir toutes les photos des 6 chambres sur Leboncoin"
             >
               Voir toutes les photos des 6 chambres
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -428,10 +435,21 @@ export default function VillaLandingPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
             <Link
+              href={LEBONCOIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-500 text-white px-10 py-5 rounded-full text-xl font-bold transition-all shadow-xl hover:-translate-y-1 hover:shadow-2xl hover:from-emerald-700 hover:to-teal-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              aria-label="Réserver la villa sur Leboncoin"
+            >
+              Réserver sur Leboncoin
+              <ArrowRight className="w-6 h-6" aria-hidden="true" />
+            </Link>
+
+            <Link
               href={AIRBNB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-slate-900 to-slate-800 text-white px-10 py-5 rounded-full text-xl font-bold transition-all shadow-xl hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              className="inline-flex items-center justify-center gap-2 bg-white/80 backdrop-blur-md text-slate-900 px-10 py-5 rounded-full text-xl font-bold border border-slate-200 hover:border-slate-300 hover:bg-white transition-all shadow-xl hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               aria-label="Réserver la villa sur Airbnb"
             >
               Réserver sur Airbnb
@@ -448,22 +466,59 @@ export default function VillaLandingPage() {
               Réserver sur Abritel
               <ArrowRight className="w-6 h-6" aria-hidden="true" />
             </Link>
-
-            <Link
-              href={LEBONCOIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-500 text-white px-10 py-5 rounded-full text-xl font-bold transition-all shadow-xl hover:-translate-y-1 hover:shadow-2xl hover:from-emerald-700 hover:to-teal-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-              aria-label="Réserver la villa sur Leboncoin"
-            >
-              Réserver sur Leboncoin
-              <ArrowRight className="w-6 h-6" aria-hidden="true" />
-            </Link>
           </div>
 
           <p className="text-sm text-slate-500">
             Aussi disponible sur Booking.com (lien à venir)
           </p>
+
+          <div className="pt-6">
+            <div className="inline-flex items-center gap-2 text-slate-600 text-sm font-semibold mb-3">
+              <Share2 className="w-4 h-4" aria-hidden="true" />
+              Partager
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-sm font-semibold text-slate-800"
+              >
+                Facebook
+              </a>
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-sm font-semibold text-slate-800"
+              >
+                LinkedIn
+              </a>
+              <a
+                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-sm font-semibold text-slate-800"
+              >
+                X
+              </a>
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(shareUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-sm font-semibold text-slate-800"
+              >
+                WhatsApp
+              </a>
+              <a
+                href={`mailto:?subject=${encodeURIComponent('Villa de Luxe Montpellier - Piscine Privée')}&body=${encodeURIComponent(shareUrl)}`}
+                className="px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-sm font-semibold text-slate-800 inline-flex items-center gap-2"
+              >
+                <Mail className="w-4 h-4" aria-hidden="true" />
+                Email
+              </a>
+            </div>
+          </div>
         </motion.div>
       </section>
 
@@ -474,10 +529,6 @@ export default function VillaLandingPage() {
             © {new Date().getFullYear()} Villa Oasis Montpellier - Agathe & Antoine
           </p>
           <div className="flex justify-center gap-4 text-sm text-slate-400 flex-wrap">
-            <Link href="/profile" className="hover:text-white transition-colors">
-              À propos d'Antoine
-            </Link>
-            <span>•</span>
             <Link href={AIRBNB_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
               Airbnb
             </Link>
@@ -539,7 +590,7 @@ function PhotoCard({ src, alt, aspectRatio }: { src: string, alt: string, aspect
       variants={FADE_UP}
     >
       <Image
-        src={`${src}.jpeg`}
+        src={`${src}.webp`}
         alt={alt}
         fill
         className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -563,7 +614,7 @@ function RoomCard({ image, title, desc, badge }: { image: string, title: string,
           </div>
         )}
         <Image
-          src={`${image}.jpeg`}
+          src={`${image}.webp`}
           alt={title}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-700"

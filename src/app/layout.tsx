@@ -15,6 +15,33 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Villa d'Exception Montpellier | 265m² Piscine Privée 6 Chambres",
   description: "Louez une villa de luxe avec piscine privée à Montpellier centre. 265m², 6 chambres, 12 voyageurs. Jardin tropical, garage, 7 min de la Comédie. Idéal familles & groupes.",
+  manifest: "/images/favicons_maison/site.webmanifest",
+  themeColor: "#ffffff",
+  icons: {
+    icon: [
+      {
+        url: "/images/favicons_maison/favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
+      {
+        url: "/images/favicons_maison/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+      {
+        url: "/images/favicons_maison/favicon.ico",
+        type: "image/x-icon",
+      },
+    ],
+    apple: [
+      {
+        url: "/images/favicons_maison/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+  },
   keywords: [
     "location villa Montpellier",
     "villa piscine Montpellier",
@@ -31,13 +58,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://antoinebillotte.com",
+    url: "https://maisonmontpellier.fr/",
     title: "Villa Oasis Montpellier | Piscine Privée & Jardin Tropical",
     description: "265m² de luxe en plein centre de Montpellier. Piscine, 6 chambres, jardin tropical. Parfait pour 12 voyageurs.",
     siteName: "Villa Oasis Montpellier",
     images: [
       {
-        url: "https://antoinebillotte.com/images/villa/hero-pool.jpg",
+        url: "https://maisonmontpellier.fr/images/villa/hero-pool.webp",
         width: 1200,
         height: 630,
         alt: "Villa avec piscine privée Montpellier"
@@ -48,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Villa Oasis Montpellier | Location de Luxe",
     description: "265m², piscine privée, 6 chambres. Le paradis urbain à Montpellier.",
-    images: ["https://antoinebillotte.com/images/villa/hero-pool.jpg"]
+    images: ["https://maisonmontpellier.fr/images/villa/hero-pool.webp"]
   },
   robots: {
     index: true,
@@ -59,7 +86,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://antoinebillotte.com"
+    canonical: "https://maisonmontpellier.fr/"
   },
 };
 
@@ -85,14 +112,14 @@ export default function RootLayout({
               "name": "Villa Oasis Montpellier",
               "description": "Villa d'architecte de 265m² avec piscine privée, jardin tropical, 6 chambres pour 12 voyageurs au cœur de Montpellier.",
               "image": [
-                "https://antoinebillotte.com/images/villa/hero-pool.jpg",
-                "https://antoinebillotte.com/images/villa/salon.jpg",
-                "https://antoinebillotte.com/images/villa/cuisine.jpg",
-                "https://antoinebillotte.com/images/villa/patio.jpg",
-                "https://antoinebillotte.com/images/villa/chambre1.jpg",
-                "https://antoinebillotte.com/images/villa/sdb-balneo.jpg",
-                "https://antoinebillotte.com/images/villa/chambre5.jpg",
-                "https://antoinebillotte.com/images/villa/repas.jpg"
+                "https://maisonmontpellier.fr/images/villa/hero-pool.webp",
+                "https://maisonmontpellier.fr/images/villa/salon.jpeg",
+                "https://maisonmontpellier.fr/images/villa/cuisine.jpeg",
+                "https://maisonmontpellier.fr/images/villa/patio.jpeg",
+                "https://maisonmontpellier.fr/images/villa/chambre1.webp",
+                "https://maisonmontpellier.fr/images/villa/sdb-balneo.jpeg",
+                "https://maisonmontpellier.fr/images/villa/chambre5.jpeg",
+                "https://maisonmontpellier.fr/images/villa/repas.jpeg"
               ],
               "address": {
                 "@type": "PostalAddress",
@@ -245,7 +272,7 @@ export default function RootLayout({
                 "maxValue": 12
               },
               "petsAllowed": false,
-              "url": "https://antoinebillotte.com",
+              "url": "https://maisonmontpellier.fr/",
               "landlord": {
                 "@type": "Person",
                 "name": "Agathe & Antoine",
