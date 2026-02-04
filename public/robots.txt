@@ -1,0 +1,35 @@
+# Robots.txt - Villa Oasis Montpellier
+# https://antoinebillotte.com
+
+User-agent: *
+Allow: /
+
+# Bloquer les ressources inutiles pour le SEO
+Disallow: /api/
+Disallow: /_next/static/
+Disallow: /images/villa/*.webp
+Disallow: /images/villa/*.avif
+
+# Autoriser explicitement les images JPG pour Google Images
+Allow: /images/villa/*.jpg
+Allow: /images/villa/*.jpeg
+
+# Sitemap
+Sitemap: https://antoinebillotte.com/sitemap.xml
+
+# Crawl-delay pour éviter surcharge serveur
+Crawl-delay: 1
+
+# Bots spécifiques
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /images/
+
+# Bloquer bots malveillants connus
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+Crawl-delay: 10

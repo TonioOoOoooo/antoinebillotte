@@ -95,11 +95,11 @@ export default function VillaLandingPage() {
               MONTPELLIER HYPER-CENTRE
             </span>
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
-              L'Oasis Urbaine <br/> d'Exception
+              Villa de Luxe Montpellier <br/> Piscine Privée & 6 Chambres
             </h1>
             <p className="text-lg md:text-xl text-slate-200 mb-8 max-w-2xl mx-auto font-light">
-              265m² de luxe et de sérénité. Piscine privée, 6 chambres, garage.
-              Le calme absolu à 5 min de la Comédie.
+              Location saisonnière exceptionnelle : 265m² avec piscine privée, jardin tropical, 6 chambres climatisées pour 12 voyageurs.
+              À 7 minutes du centre de Montpellier.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -169,11 +169,15 @@ export default function VillaLandingPage() {
             className="space-y-6"
           >
             <h2 className="text-3xl md:text-5xl font-bold text-slate-900">
-              Un paradis caché <br/><span className="text-emerald-600">quartier Antigone</span>
+              Location Villa Luxe Montpellier <br/><span className="text-emerald-600">Quartier Antigone</span>
             </h2>
             <p className="text-lg text-slate-600 leading-relaxed">
-              Imaginez un jardin tropical luxuriant, entièrement clos, à seulement quelques minutes de l'effervescence de la ville.
-              Cette villa d'architecte de 265m² est conçue pour les grandes familles et les groupes d'amis.
+              <strong>Villa de vacances haut de gamme à Montpellier</strong> : découvrez cette maison d'architecte de 265m² avec piscine privée chauffée,
+              nichée dans un jardin tropical luxuriant entièrement clos. Idéale pour location saisonnière en famille ou entre amis (jusqu'à 12 personnes).
+            </p>
+            <p className="text-lg text-slate-600 leading-relaxed mt-3">
+              Cette <strong>location de vacances premium</strong> combine le confort moderne d'une villa contemporaine avec le charme d'un véritable
+              oasis urbain, à quelques minutes seulement de la Place de la Comédie et du quartier historique de Montpellier.
             </p>
             <ul className="space-y-3" role="list">
               <ListItem text="Pièce de vie de +100m² baignée de lumière" />
@@ -223,8 +227,11 @@ export default function VillaLandingPage() {
       <section className="py-20 bg-slate-100" aria-labelledby="chambres-title">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 id="chambres-title" className="text-3xl md:text-4xl font-bold mb-4">Nuits douces & Détente</h2>
-            <p className="text-slate-600">6 chambres climatisées et 4 salles de bain pour le confort de tous.</p>
+            <h2 id="chambres-title" className="text-3xl md:text-4xl font-bold mb-4">6 Chambres Spacieuses & Espace Spa Privatif</h2>
+            <p className="text-slate-600 max-w-3xl mx-auto">
+              Hébergement haut de gamme avec 6 chambres climatisées, literie hôtelière premium, 4 salles de bain modernes dont une avec baignoire balnéo.
+              Capacité totale : 12 voyageurs pour votre location de villa à Montpellier.
+            </p>
           </div>
 
           <motion.div
@@ -327,29 +334,33 @@ export default function VillaLandingPage() {
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h2 id="localisation-title" className="text-3xl md:text-4xl font-bold mb-6">
               <MapPin className="w-8 h-8 inline-block text-emerald-600 mr-2" aria-hidden="true" />
-              Emplacement Idéal
+              Location Vacances Montpellier Centre - Emplacement Premium
             </h2>
             <p className="text-lg text-slate-600">
-              Au cœur de Montpellier, entre Antigone et Port Marianne.
-              Accès rapide aux plages, à la gare et au centre historique.
+              <strong>Situation exceptionnelle</strong> au cœur de Montpellier, entre les quartiers Antigone et Port Marianne.
+              Proche de toutes commodités : tram ligne 1 à 3 min, Gare Saint-Roch à 5 min, plages méditerranéennes à 25 min en voiture.
+              Parfait pour visiter Montpellier et profiter de la Méditerranée.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <div className="space-y-4">
-              <h3 className="font-bold text-lg mb-4">À proximité</h3>
-              <LocationItem icon={MapPin} label="Place de la Comédie" distance="5 min à pied" />
-              <LocationItem icon={MapPin} label="Gare Saint-Roch" distance="5 min à pied" />
-              <LocationItem icon={Waves} label="Plages de Carnaud" distance="25 min en voiture" />
-              <LocationItem icon={UtensilsCrossed} label="Restaurants & Bars" distance="5 min à pied" />
+              <h3 className="font-bold text-lg mb-4 text-slate-900">Points d'Intérêt Touristiques</h3>
+              <LocationItem icon={MapPin} label="Place de la Comédie - Centre historique" distance="7 min" />
+              <LocationItem icon={MapPin} label="Gare TGV Saint-Roch" distance="5 min" />
+              <LocationItem icon={Waves} label="Plages méditerranéennes (Carnon, Palavas)" distance="25 min" />
+              <LocationItem icon={UtensilsCrossed} label="Restaurants gastronomiques & Bars" distance="5 min" />
+              <LocationItem icon={MapPin} label="Musée Fabre & Opéra Comédie" distance="10 min" />
+              <LocationItem icon={MapPin} label="Jardin des Plantes" distance="8 min" />
             </div>
 
             <div className="space-y-4">
-              <h3 className="font-bold text-lg mb-4">Transports</h3>
-              <LocationItem icon={MapPin} label="Arrêt Tram ligne 1" distance="3 min à pied" />
-              <LocationItem icon={Car} label="Parking privé fermé" distance="Inclus" />
-              <LocationItem icon={MapPin} label="Aéroport Montpellier" distance="15 min" />
-              <LocationItem icon={MapPin} label="Autoroute A9" distance="10 min" />
+              <h3 className="font-bold text-lg mb-4 text-slate-900">Accès & Transports</h3>
+              <LocationItem icon={MapPin} label="Arrêt Tram ligne 1 (Antigone)" distance="3 min à pied" />
+              <LocationItem icon={Car} label="Garage privé sécurisé (inclus)" distance="Sur place" />
+              <LocationItem icon={MapPin} label="Aéroport Montpellier Méditerranée" distance="15 min" />
+              <LocationItem icon={MapPin} label="Autoroute A9 (Paris-Barcelone)" distance="10 min" />
+              <LocationItem icon={MapPin} label="Location vélos Vélomagg" distance="2 min" />
             </div>
           </div>
         </div>
@@ -401,9 +412,10 @@ export default function VillaLandingPage() {
           variants={FADE_UP}
           className="space-y-8"
         >
-          <h2 className="text-4xl md:text-5xl font-bold">Réserver en ligne</h2>
+          <h2 className="text-4xl md:text-5xl font-bold">Réservez Votre Location Saisonnière Montpellier</h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Réservez dès maintenant votre villa d'exception sur nos plateformes partenaires. Paiement sécurisé et annulation flexible.
+            Réservez dès maintenant votre villa de luxe à Montpellier sur nos plateformes partenaires de confiance.
+            Paiement sécurisé, annulation flexible, disponibilités en temps réel. Location vacances Airbnb, Abritel et Leboncoin.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
