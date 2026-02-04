@@ -97,7 +97,7 @@ export default function VillaLandingPage() {
             animate="visible"
             variants={FADE_UP}
           >
-            <div className="inline-block rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl px-6 py-8 md:px-10 md:py-10">
+            <div className="inline-block rounded-3xl bg-white/20 border border-white/15 shadow-2xl px-6 py-8 md:px-10 md:py-10">
               <span className="inline-block py-1 px-3 rounded-full bg-emerald-100/10 backdrop-blur-md border border-emerald-200/20 text-emerald-200 text-sm font-medium tracking-wider mb-4">
                 MONTPELLIER HYPER-CENTRE
               </span>
@@ -590,7 +590,7 @@ function LocationItem({ icon: Icon, label, distance }: { icon: any, label: strin
 
 function HeroVideoBackground({ sources }: { sources: string[] }) {
   const [index, setIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasEverPlayed, setHasEverPlayed] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const src = sources[index % sources.length];
@@ -605,7 +605,6 @@ function HeroVideoBackground({ sources }: { sources: string[] }) {
   }, []);
 
   const goNext = useCallback(() => {
-    setIsPlaying(false);
     setIndex((v) => (v + 1) % sources.length);
   }, [sources.length]);
 
@@ -618,24 +617,23 @@ function HeroVideoBackground({ sources }: { sources: string[] }) {
   return (
     <div className="absolute inset-0">
       <Image
-        src="/images/villa/hero-pool.webp"
+        src="/images/villa/hero-pool3.webp"
         alt="Villa avec piscine privée à Montpellier centre, jardin tropical luxuriant"
         fill
-        className={`object-cover scale-105 filter saturate-170 contrast-130 brightness-85 transition-opacity duration-500 ${isPlaying ? 'opacity-0' : 'opacity-100'}`}
+        className={`object-cover scale-105 filter saturate-170 contrast-130 brightness-85 transition-opacity duration-700 ${hasEverPlayed ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
         priority
       />
       <video
         ref={videoRef}
         key={src}
-        className={`absolute inset-0 h-full w-full object-cover scale-105 filter saturate-170 contrast-130 brightness-85 transition-opacity duration-500 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}
+        className="absolute inset-0 h-full w-full object-cover scale-105 filter saturate-170 contrast-130 brightness-85"
         src={src}
         autoPlay
         muted
         playsInline
         preload="auto"
         onCanPlay={tryPlay}
-        onPlaying={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
+        onPlaying={() => setHasEverPlayed(true)}
         onEnded={goNext}
         onError={goNext}
       />
