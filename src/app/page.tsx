@@ -1,6 +1,7 @@
+
 'use client';
 
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -42,21 +43,35 @@ const STAGGER_CONTAINER = {
 };
 
 export default function VillaLandingPage() {
+  const heroVideos = useMemo(
+    () => [
+      '/images/villa/videos/PISCINE%20AV%20HAUT%20GOOD%20%28Vertical%29.mp4',
+      '/images/villa/videos/PISCINE%20AR%20GOOD.mp4',
+      '/images/villa/videos/PATIO.mp4',
+      '/images/villa/videos/CUISINE.mp4',
+      '/images/villa/videos/SAM.mp4',
+      '/images/villa/videos/CHAMBRE.mp4',
+      '/images/villa/videos/CHAMBRE%20AMBRE.mp4',
+      '/images/villa/videos/PISCINE%20AR%20BAD.mp4',
+    ],
+    []
+  );
+
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 selection:bg-emerald-200 selection:text-emerald-900">
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 text-slate-900 selection:bg-emerald-200 selection:text-emerald-900">
 
       {/* --- NAVIGATION --- */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_0_0_rgba(15,23,42,0.06)]">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2 text-slate-900">
             <Waves className="w-5 h-5 text-emerald-600" />
-            <span className="font-bold text-emerald-600">maisonmontpellier.fr</span>
+            <span className="font-semibold tracking-tight text-emerald-700">maisonmontpellier.fr</span>
           </div>
           <Link
             href={AIRBNB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-emerald-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-emerald-700 transition-all shadow-md hover:shadow-lg"
+            className="bg-gradient-to-r from-emerald-600 to-teal-500 text-white px-6 py-2.5 rounded-full font-semibold hover:from-emerald-700 hover:to-teal-600 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             aria-label="Réserver la villa sur Airbnb"
           >
             Réserver
@@ -69,19 +84,10 @@ export default function VillaLandingPage() {
         {/* Image Hero avec support WebP */}
         <div className="absolute inset-0 z-0">
           <div className="w-full h-full bg-slate-800 relative">
-            <picture>
-              {/* WebP optimisé pour performance */}
-              <source srcSet="/images/villa/hero-pool.webp" type="image/webp" />
-              {/* Fallback JPG */}
-              <Image
-                src="/images/villa/hero-pool.jpg"
-                alt="Villa avec piscine privée à Montpellier centre, jardin tropical luxuriant"
-                fill
-                className="object-cover opacity-60"
-                priority
-              />
-            </picture>
-            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-slate-50/90" />
+            <HeroVideoBackground sources={heroVideos} />
+            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-900/55 via-sky-900/25 to-transparent" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.08)_0%,transparent_35%,rgba(0,0,0,0.65)_100%)]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-slate-50/60" />
           </div>
         </div>
 
@@ -91,35 +97,37 @@ export default function VillaLandingPage() {
             animate="visible"
             variants={FADE_UP}
           >
-            <span className="inline-block py-1 px-3 rounded-full bg-emerald-100/10 backdrop-blur-md border border-emerald-200/20 text-emerald-300 text-sm font-medium tracking-wider mb-4">
-              MONTPELLIER HYPER-CENTRE
-            </span>
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
-              Villa de Luxe Montpellier <br/> Piscine Privée & 6 Chambres
-            </h1>
-            <p className="text-lg md:text-xl text-slate-200 mb-8 max-w-2xl mx-auto font-light">
-              Location saisonnière exceptionnelle : 265m² avec piscine privée, jardin tropical, 6 chambres climatisées pour 12 voyageurs.
-              À 7 minutes du centre de Montpellier.
-            </p>
+            <div className="inline-block rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl px-6 py-8 md:px-10 md:py-10">
+              <span className="inline-block py-1 px-3 rounded-full bg-emerald-100/10 backdrop-blur-md border border-emerald-200/20 text-emerald-200 text-sm font-medium tracking-wider mb-4">
+                MONTPELLIER HYPER-CENTRE
+              </span>
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                Villa de Luxe Montpellier <br/> Piscine Privée & 6 Chambres
+              </h1>
+              <p className="text-lg md:text-xl text-slate-100 mb-8 max-w-2xl mx-auto font-light">
+                Location saisonnière exceptionnelle : 265m² avec piscine privée, jardin tropical, 6 chambres climatisées pour 12 voyageurs.
+                À 7 minutes du centre de Montpellier.
+              </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href={AIRBNB_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group bg-white text-slate-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-emerald-50 transition-all flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl hover:-translate-y-1"
-                aria-label="Voir les disponibilités de la villa sur Airbnb"
-              >
-                Voir les disponibilités
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-              </Link>
-              <a
-                href="#visite"
-                className="px-8 py-4 rounded-full font-semibold text-white border border-white/30 hover:bg-white/10 transition-all backdrop-blur-sm"
-                aria-label="Découvrir la visite virtuelle de la villa"
-              >
-                Visiter la villa
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  href={AIRBNB_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-gradient-to-r from-white via-white to-emerald-50 text-slate-900 px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
+                  aria-label="Voir les disponibilités de la villa sur Airbnb"
+                >
+                  Voir les disponibilités
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                </Link>
+                <a
+                  href="#visite"
+                  className="px-8 py-4 rounded-full font-semibold text-white border border-white/25 bg-white/5 hover:bg-white/10 transition-all backdrop-blur-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
+                  aria-label="Découvrir la visite virtuelle de la villa"
+                >
+                  Visiter la villa
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -137,7 +145,7 @@ export default function VillaLandingPage() {
       </section>
 
       {/* --- STATS / FEATURES --- */}
-      <section className="py-8 md:py-12 border-b border-slate-200 bg-white md:sticky md:top-16 z-20 shadow-sm backdrop-blur-md bg-white/95" role="region" aria-label="Caractéristiques principales">
+      <section className="py-8 md:py-12 border-b border-slate-200/60 bg-white/70 md:sticky md:top-16 z-20 shadow-sm backdrop-blur-xl" role="region" aria-label="Caractéristiques principales">
         <div className="container mx-auto px-4">
           <motion.div
             className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 md:gap-6 text-center"
@@ -168,7 +176,7 @@ export default function VillaLandingPage() {
             variants={FADE_UP}
             className="space-y-6"
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900">
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight leading-[1.05]">
               Location Villa Luxe Montpellier <br/><span className="text-emerald-600">Quartier Antigone</span>
             </h2>
             <p className="text-lg text-slate-600 leading-relaxed">
@@ -224,10 +232,10 @@ export default function VillaLandingPage() {
       </section>
 
       {/* --- CHAMBRES & SPA --- */}
-      <section className="py-20 bg-slate-100" aria-labelledby="chambres-title">
+      <section className="py-20 bg-gradient-to-b from-slate-100 via-slate-50 to-white" aria-labelledby="chambres-title">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 id="chambres-title" className="text-3xl md:text-4xl font-bold mb-4">6 Chambres Spacieuses & Espace Spa Privatif</h2>
+            <h2 id="chambres-title" className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">6 Chambres Spacieuses & Espace Spa Privatif</h2>
             <p className="text-slate-600 max-w-3xl mx-auto">
               Hébergement haut de gamme avec 6 chambres climatisées, literie hôtelière premium, 4 salles de bain modernes dont une avec baignoire balnéo.
               Capacité totale : 12 voyageurs pour votre location de villa à Montpellier.
@@ -332,7 +340,7 @@ export default function VillaLandingPage() {
       <section className="py-20 bg-white" aria-labelledby="localisation-title">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 id="localisation-title" className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 id="localisation-title" className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
               <MapPin className="w-8 h-8 inline-block text-emerald-600 mr-2" aria-hidden="true" />
               Location Vacances Montpellier Centre - Emplacement Premium
             </h2>
@@ -412,7 +420,7 @@ export default function VillaLandingPage() {
           variants={FADE_UP}
           className="space-y-8"
         >
-          <h2 className="text-4xl md:text-5xl font-bold">Réservez Votre Location Saisonnière Montpellier</h2>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Réservez Votre Location Saisonnière Montpellier</h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             Réservez dès maintenant votre villa de luxe à Montpellier sur nos plateformes partenaires de confiance.
             Paiement sécurisé, annulation flexible, disponibilités en temps réel. Location vacances Airbnb, Abritel et Leboncoin.
@@ -423,7 +431,7 @@ export default function VillaLandingPage() {
               href={AIRBNB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-slate-900 text-white px-10 py-5 rounded-full text-xl font-bold hover:bg-slate-800 transition-all shadow-xl hover:-translate-y-1"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-slate-900 to-slate-800 text-white px-10 py-5 rounded-full text-xl font-bold transition-all shadow-xl hover:-translate-y-1 hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               aria-label="Réserver la villa sur Airbnb"
             >
               Réserver sur Airbnb
@@ -434,7 +442,7 @@ export default function VillaLandingPage() {
               href={ABRITEL_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-white text-slate-900 px-10 py-5 rounded-full text-xl font-bold border-2 border-slate-900 hover:bg-slate-50 transition-all shadow-xl hover:-translate-y-1"
+              className="inline-flex items-center justify-center gap-2 bg-white/80 backdrop-blur-md text-slate-900 px-10 py-5 rounded-full text-xl font-bold border border-slate-200 hover:border-slate-300 hover:bg-white transition-all shadow-xl hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               aria-label="Réserver la villa sur Abritel"
             >
               Réserver sur Abritel
@@ -445,7 +453,7 @@ export default function VillaLandingPage() {
               href={LEBONCOIN_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-emerald-600 text-white px-10 py-5 rounded-full text-xl font-bold hover:bg-emerald-700 transition-all shadow-xl hover:-translate-y-1"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-500 text-white px-10 py-5 rounded-full text-xl font-bold transition-all shadow-xl hover:-translate-y-1 hover:shadow-2xl hover:from-emerald-700 hover:to-teal-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               aria-label="Réserver la villa sur Leboncoin"
             >
               Réserver sur Leboncoin
@@ -503,11 +511,11 @@ export default function VillaLandingPage() {
 function FeatureIcon({ icon: Icon, label }: { icon: any, label: string }) {
   return (
     <motion.div
-      className="flex flex-col items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors cursor-default"
+      className="flex flex-col items-center gap-2 text-slate-600 hover:text-emerald-700 transition-colors cursor-default"
       variants={FADE_UP}
       whileHover={{ scale: 1.05 }}
     >
-      <div className="p-3 bg-slate-100 rounded-2xl text-slate-900 shadow-sm">
+      <div className="p-3 bg-white/70 backdrop-blur-md rounded-2xl text-slate-900 shadow-sm border border-slate-200/60">
         <Icon className="w-6 h-6" aria-hidden="true" />
       </div>
       <span className="text-sm font-medium">{label}</span>
@@ -527,19 +535,16 @@ function ListItem({ text }: { text: string }) {
 function PhotoCard({ src, alt, aspectRatio }: { src: string, alt: string, aspectRatio: string }) {
   return (
     <motion.div
-      className={`${aspectRatio} rounded-2xl overflow-hidden relative shadow-lg group`}
+      className={`${aspectRatio} rounded-2xl overflow-hidden relative shadow-lg group border border-slate-200/60 bg-white`}
       variants={FADE_UP}
     >
-      <picture>
-        <source srcSet={`${src}.webp`} type="image/webp" />
-        <Image
-          src={`${src}.jpg`}
-          alt={alt}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-          loading="lazy"
-        />
-      </picture>
+      <Image
+        src={`${src}.jpeg`}
+        alt={alt}
+        fill
+        className="object-cover group-hover:scale-105 transition-transform duration-700"
+        loading="lazy"
+      />
     </motion.div>
   );
 }
@@ -547,7 +552,7 @@ function PhotoCard({ src, alt, aspectRatio }: { src: string, alt: string, aspect
 function RoomCard({ image, title, desc, badge }: { image: string, title: string, desc: string, badge?: string }) {
   return (
     <motion.div
-      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all"
+      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/60 hover:border-slate-200"
       variants={FADE_UP}
       whileHover={{ y: -5 }}
     >
@@ -557,16 +562,13 @@ function RoomCard({ image, title, desc, badge }: { image: string, title: string,
             {badge}
           </div>
         )}
-        <picture>
-          <source srcSet={`${image}.webp`} type="image/webp" />
-          <Image
-            src={`${image}.jpg`}
-            alt={title}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-700"
-            loading="lazy"
-          />
-        </picture>
+        <Image
+          src={`${image}.jpeg`}
+          alt={title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-700"
+          loading="lazy"
+        />
       </div>
       <div className="p-6">
         <h3 className="font-bold text-lg mb-2">{title}</h3>
@@ -582,6 +584,62 @@ function LocationItem({ icon: Icon, label, distance }: { icon: any, label: strin
       <Icon className="w-5 h-5 text-emerald-600 shrink-0" aria-hidden="true" />
       <span className="flex-1">{label}</span>
       <span className="text-sm font-semibold text-slate-900">{distance}</span>
+    </div>
+  );
+}
+
+function HeroVideoBackground({ sources }: { sources: string[] }) {
+  const [index, setIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const src = sources[index % sources.length];
+
+  const tryPlay = useCallback(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const p = el.play();
+    if (p && typeof (p as any).catch === 'function') {
+      (p as Promise<void>).catch(() => {});
+    }
+  }, []);
+
+  const goNext = useCallback(() => {
+    setIsPlaying(false);
+    setIndex((v) => (v + 1) % sources.length);
+  }, [sources.length]);
+
+  useEffect(() => {
+    tryPlay();
+  }, [src, tryPlay]);
+
+  if (sources.length === 0) return null;
+
+  return (
+    <div className="absolute inset-0">
+      <Image
+        src="/images/villa/hero-pool.webp"
+        alt="Villa avec piscine privée à Montpellier centre, jardin tropical luxuriant"
+        fill
+        className={`object-cover scale-105 filter saturate-170 contrast-130 brightness-85 transition-opacity duration-500 ${isPlaying ? 'opacity-0' : 'opacity-100'}`}
+        priority
+      />
+      <video
+        ref={videoRef}
+        key={src}
+        className={`absolute inset-0 h-full w-full object-cover scale-105 filter saturate-170 contrast-130 brightness-85 transition-opacity duration-500 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}
+        src={src}
+        autoPlay
+        muted
+        playsInline
+        preload="auto"
+        onCanPlay={tryPlay}
+        onPlaying={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onEnded={goNext}
+        onError={goNext}
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
     </div>
   );
 }
