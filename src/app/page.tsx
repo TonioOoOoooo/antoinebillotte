@@ -118,6 +118,13 @@ export default function VillaLandingPage() {
                 Idéal pour 12 voyageurs. (Fêtes non autorisées)
               </p>
 
+              <div className="flex flex-wrap items-center justify-center gap-2 mb-8" aria-label="Tarif à partir de 595 euros la nuit">
+                <span className="inline-flex items-center rounded-full bg-white/15 backdrop-blur-md border border-white/20 px-4 py-1.5 text-sm font-semibold text-white">
+                  À partir de 595 € / nuit
+                </span>
+                <span className="text-xs text-slate-100/80">Tarifs selon dates • voir calendrier Leboncoin</span>
+              </div>
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   href={LEBONCOIN_URL}
@@ -562,6 +569,53 @@ export default function VillaLandingPage() {
               <LocationItem icon={MapPin} label="Aéroport Montpellier Méditerranée" distance="15 min en voiture" />
               <LocationItem icon={MapPin} label="Autoroute A9 (Paris-Barcelone)" distance="10 min en voiture" />
               <LocationItem icon={MapPin} label="Location vélos Vélomagg" distance="5 min à pied" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-slate-50" aria-labelledby="tarifs-title">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h2 id="tarifs-title" className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Tarifs</h2>
+            <p className="text-lg text-slate-600">
+              Tarifs indicatifs été 2026 (par nuit). Le prix exact dépend des dates et des disponibilités.
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-slate-200/60">
+            <div className="grid sm:grid-cols-3 gap-4 text-left">
+              <div className="rounded-2xl bg-slate-50 p-5 border border-slate-200/70">
+                <p className="text-sm font-semibold text-slate-900">04/07/26 → 31/07/26</p>
+                <p className="text-2xl font-bold text-emerald-700 mt-2">595 €</p>
+                <p className="text-sm text-slate-600">/ nuit</p>
+              </div>
+              <div className="rounded-2xl bg-slate-50 p-5 border border-slate-200/70">
+                <p className="text-sm font-semibold text-slate-900">01/08/26 → 16/08/26</p>
+                <p className="text-2xl font-bold text-emerald-700 mt-2">695 €</p>
+                <p className="text-sm text-slate-600">/ nuit</p>
+              </div>
+              <div className="rounded-2xl bg-slate-50 p-5 border border-slate-200/70">
+                <p className="text-sm font-semibold text-slate-900">17/08/26 → 23/08/26</p>
+                <p className="text-2xl font-bold text-emerald-700 mt-2">595 €</p>
+                <p className="text-sm text-slate-600">/ nuit</p>
+              </div>
+            </div>
+
+            <div className="mt-6 text-center">
+              <Link
+                href={LEBONCOIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-emerald-600 text-white font-semibold shadow-lg hover:bg-emerald-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
+                aria-label="Vérifier les disponibilités et le prix exact sur Leboncoin"
+              >
+                Vérifier le prix exact sur Leboncoin
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </Link>
+              <p className="text-xs text-slate-500 mt-3">
+                Tarifs susceptibles d'évoluer. Conditions et frais éventuels selon plateforme.
+              </p>
             </div>
           </div>
         </div>
