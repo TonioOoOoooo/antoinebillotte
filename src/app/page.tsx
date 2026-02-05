@@ -47,9 +47,32 @@ const STAGGER_CONTAINER = {
 export default function VillaLandingPage() {
   const [showAllRooms, setShowAllRooms] = useState(false);
   const [showAllGallery, setShowAllGallery] = useState(false);
-  const googleCalendarEmbedSrc = 'https://calendar.google.com/calendar/embed?src=a293ca9a2316cdd2057751c81046ecfa608f3041219e969844f1e5d5fb1cca29%40group.calendar.google.com&ctz=Europe%2FParis&hl=fr&wkst=2&mode=MONTH&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&showDate=20260704';
-  const googleCalendarPublicUrl = 'https://calendar.google.com/calendar/embed?src=a293ca9a2316cdd2057751c81046ecfa608f3041219e969844f1e5d5fb1cca29%40group.calendar.google.com&ctz=Europe%2FParis&hl=fr&wkst=2&mode=MONTH&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&showDate=20260704';
-  const googleCalendarSummer2026Url = 'https://calendar.google.com/calendar/embed?src=a293ca9a2316cdd2057751c81046ecfa608f3041219e969844f1e5d5fb1cca29%40group.calendar.google.com&ctz=Europe%2FParis&hl=fr&wkst=2&mode=MONTH&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&showDate=20260704';
+  const [blockedDates, setBlockedDates] = useState<Set<string>>(new Set());
+  const [calendarLoading, setCalendarLoading] = useState(true);
+  const [calendarError, setCalendarError] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/calendar')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.blocked) {
+          const dates = new Set<string>();
+          for (const range of data.blocked) {
+            const start = new Date(range.start);
+            const end = new Date(range.end);
+            for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+              dates.add(d.toISOString().slice(0, 10));
+            }
+          }
+          setBlockedDates(dates);
+        }
+        setCalendarLoading(false);
+      })
+      .catch(() => {
+        setCalendarError(true);
+        setCalendarLoading(false);
+      });
+  }, []);
   const heroVideos = useMemo(
     () => [
       '/images/villa/videos/PISCINE%20AV%20HAUT%20GOOD%20%28Vertical%29.mp4',
@@ -627,69 +650,44 @@ export default function VillaLandingPage() {
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h2 id="disponibilites-title" className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Disponibilités</h2>
             <p className="text-lg text-slate-600">
-              Calendrier mis à jour automatiquement. Les blocs correspondent aux nuits indisponibles (réservées).
-            </p>
-            <p className="text-sm text-slate-500 mt-2">
-              Si le calendrier semble vide, cela signifie qu'aucune nuit n'est bloquée sur la période affichée.
+              Calendrier synchronisé en temps réel avec Airbnb. Les dates en rouge sont déjà réservées.
             </p>
           </div>
 
-          <div id="disponibilites" className="max-w-5xl mx-auto bg-slate-50 rounded-3xl border border-slate-200/70 overflow-hidden scroll-mt-24">
-            <div className="p-6 border-b border-slate-200/70 bg-white">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                <p className="text-sm text-slate-700">
-                  <span className="font-semibold text-slate-900">Premières disponibilités annoncées :</span> du 04/07/2026 au 23/08/2026.
-                </p>
-                <p className="text-xs text-slate-500">
-                  Astuce : en « busy only », seuls les jours réservés apparaissent.
-                </p>
+          <div id="disponibilites" className="max-w-5xl mx-auto scroll-mt-24">
+            {calendarLoading ? (
+              <div className="text-center py-16 text-slate-500">
+                <div className="inline-block w-8 h-8 border-4 border-slate-200 border-t-emerald-600 rounded-full animate-spin mb-4" />
+                <p>Chargement du calendrier…</p>
               </div>
-              <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-                <a
-                  href={googleCalendarSummer2026Url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-full bg-white border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-sm font-semibold text-slate-900"
-                  aria-label="Ouvrir le calendrier sur juillet 2026"
-                >
-                  Voir l'été 2026
-                </a>
-              </div>
-            </div>
-            {googleCalendarEmbedSrc ? (
-              <div className="relative w-full aspect-[16/10] bg-white">
-                <iframe
-                  src={googleCalendarEmbedSrc}
-                  title="Calendrier des disponibilités"
-                  className="absolute inset-0 w-full h-full"
-                  loading="lazy"
-                />
+            ) : calendarError ? (
+              <div className="text-center py-16 text-slate-500">
+                <p className="font-semibold text-slate-900">Impossible de charger le calendrier</p>
+                <p className="mt-2 text-sm">Veuillez réessayer plus tard ou nous contacter directement.</p>
               </div>
             ) : (
-              <div className="p-8 text-center text-slate-600">
-                <p className="font-semibold text-slate-900">Calendrier à configurer</p>
-                <p className="mt-2">
-                  Colle ici l'URL d'intégration Google Calendar (embed) pour afficher les disponibilités.
-                </p>
-              </div>
+              <AvailabilityCalendar blockedDates={blockedDates} />
             )}
 
-            <div className="p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p className="text-sm text-slate-600">
-                Pour confirmer une date et le tarif exact, consulte le calendrier de réservation.
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-600">
+              <div className="flex items-center gap-2">
+                <span className="w-4 h-4 rounded bg-emerald-100 border border-emerald-300" />
+                <span>Disponible</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-4 h-4 rounded bg-red-100 border border-red-300" />
+                <span>Réservé</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-4 h-4 rounded bg-slate-100 border border-slate-200" />
+                <span>Passé</span>
+              </div>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="text-xs text-slate-500">
+                Données synchronisées automatiquement depuis Airbnb. Pour réserver, contactez-nous ou passez par Leboncoin.
               </p>
-              {googleCalendarPublicUrl ? (
-                <Link
-                  href={googleCalendarPublicUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-sm font-semibold text-slate-900"
-                  aria-label="Ouvrir le calendrier des disponibilités en plein écran"
-                >
-                  Ouvrir en plein écran
-                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                </Link>
-              ) : null}
             </div>
           </div>
         </div>
@@ -1009,6 +1007,89 @@ function HeroVideoBackground({ sources }: { sources: string[] }) {
         onError={goNext}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
+    </div>
+  );
+}
+
+function AvailabilityCalendar({ blockedDates }: { blockedDates: Set<string> }) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const months: { year: number; month: number }[] = [];
+  const startMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+  for (let i = 0; i < 4; i++) {
+    const d = new Date(startMonth);
+    d.setMonth(d.getMonth() + i);
+    months.push({ year: d.getFullYear(), month: d.getMonth() });
+  }
+
+  const DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+  const MONTH_NAMES = [
+    'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+    'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre',
+  ];
+
+  function getDaysInMonth(year: number, month: number) {
+    return new Date(year, month + 1, 0).getDate();
+  }
+
+  function getFirstDayOfWeek(year: number, month: number) {
+    const day = new Date(year, month, 1).getDay();
+    return day === 0 ? 6 : day - 1;
+  }
+
+  return (
+    <div className="grid md:grid-cols-2 gap-6">
+      {months.map(({ year, month }) => {
+        const daysInMonth = getDaysInMonth(year, month);
+        const firstDay = getFirstDayOfWeek(year, month);
+        const cells: React.ReactNode[] = [];
+
+        for (let i = 0; i < firstDay; i++) {
+          cells.push(<div key={`empty-${i}`} />);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const date = new Date(year, month, day);
+          const isPast = date < today;
+          const isBlocked = blockedDates.has(dateStr);
+
+          let cellClass = 'rounded-lg text-center py-2 text-sm font-medium transition-colors ';
+          if (isPast) {
+            cellClass += 'bg-slate-50 text-slate-300 border border-slate-100';
+          } else if (isBlocked) {
+            cellClass += 'bg-red-50 text-red-700 border border-red-200';
+          } else {
+            cellClass += 'bg-emerald-50 text-emerald-800 border border-emerald-200';
+          }
+
+          cells.push(
+            <div key={dateStr} className={cellClass}>
+              {day}
+            </div>
+          );
+        }
+
+        return (
+          <div
+            key={`${year}-${month}`}
+            className="bg-white rounded-2xl border border-slate-200/70 shadow-sm p-6"
+          >
+            <h3 className="text-lg font-bold text-slate-900 mb-4 text-center">
+              {MONTH_NAMES[month]} {year}
+            </h3>
+            <div className="grid grid-cols-7 gap-1 mb-2">
+              {DAYS.map((d) => (
+                <div key={d} className="text-center text-xs font-semibold text-slate-400 py-1">
+                  {d}
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-7 gap-1">{cells}</div>
+          </div>
+        );
+      })}
     </div>
   );
 }
