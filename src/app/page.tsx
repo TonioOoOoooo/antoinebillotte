@@ -47,8 +47,9 @@ const STAGGER_CONTAINER = {
 export default function VillaLandingPage() {
   const [showAllRooms, setShowAllRooms] = useState(false);
   const [showAllGallery, setShowAllGallery] = useState(false);
-  const googleCalendarEmbedSrc = 'https://calendar.google.com/calendar/embed?src=a293ca9a2316cdd2057751c81046ecfa608f3041219e969844f1e5d5fb1cca29%40group.calendar.google.com&ctz=Europe%2FParis';
-  const googleCalendarPublicUrl = 'https://calendar.google.com/calendar/embed?src=a293ca9a2316cdd2057751c81046ecfa608f3041219e969844f1e5d5fb1cca29%40group.calendar.google.com&ctz=Europe%2FParis';
+  const googleCalendarEmbedSrc = 'https://calendar.google.com/calendar/embed?src=a293ca9a2316cdd2057751c81046ecfa608f3041219e969844f1e5d5fb1cca29%40group.calendar.google.com&ctz=Europe%2FParis&hl=fr&wkst=2&mode=MONTH&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&showDate=20260704';
+  const googleCalendarPublicUrl = 'https://calendar.google.com/calendar/embed?src=a293ca9a2316cdd2057751c81046ecfa608f3041219e969844f1e5d5fb1cca29%40group.calendar.google.com&ctz=Europe%2FParis&hl=fr&wkst=2&mode=MONTH&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&showDate=20260704';
+  const googleCalendarSummer2026Url = 'https://calendar.google.com/calendar/embed?src=a293ca9a2316cdd2057751c81046ecfa608f3041219e969844f1e5d5fb1cca29%40group.calendar.google.com&ctz=Europe%2FParis&hl=fr&wkst=2&mode=MONTH&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&showDate=20260704';
   const heroVideos = useMemo(
     () => [
       '/images/villa/videos/PISCINE%20AV%20HAUT%20GOOD%20%28Vertical%29.mp4',
@@ -124,16 +125,14 @@ export default function VillaLandingPage() {
                 <span className="inline-flex items-center rounded-full bg-white/15 backdrop-blur-md border border-white/20 px-4 py-1.5 text-sm font-semibold text-white">
                   À partir de 595 € / nuit
                 </span>
-                <span className="text-xs text-slate-100/80">Tarifs selon dates • voir calendrier Leboncoin</span>
+                <span className="text-xs text-slate-100/80">Tarifs selon dates • voir calendrier ci-dessous</span>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href={LEBONCOIN_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#disponibilites"
                   className="group bg-gradient-to-r from-white via-white to-emerald-50 text-slate-900 px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
-                  aria-label="Voir les disponibilités de la villa sur Leboncoin"
+                  aria-label="Voir les disponibilités"
                 >
                   Voir les disponibilités
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
@@ -628,11 +627,35 @@ export default function VillaLandingPage() {
           <div className="max-w-4xl mx-auto text-center mb-12">
             <h2 id="disponibilites-title" className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Disponibilités</h2>
             <p className="text-lg text-slate-600">
-              Calendrier mis à jour automatiquement. Les dates affichées correspondent aux nuits indisponibles.
+              Calendrier mis à jour automatiquement. Les blocs correspondent aux nuits indisponibles (réservées).
+            </p>
+            <p className="text-sm text-slate-500 mt-2">
+              Si le calendrier semble vide, cela signifie qu'aucune nuit n'est bloquée sur la période affichée.
             </p>
           </div>
 
-          <div className="max-w-5xl mx-auto bg-slate-50 rounded-3xl border border-slate-200/70 overflow-hidden">
+          <div id="disponibilites" className="max-w-5xl mx-auto bg-slate-50 rounded-3xl border border-slate-200/70 overflow-hidden scroll-mt-24">
+            <div className="p-6 border-b border-slate-200/70 bg-white">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <p className="text-sm text-slate-700">
+                  <span className="font-semibold text-slate-900">Premières disponibilités annoncées :</span> du 04/07/2026 au 23/08/2026.
+                </p>
+                <p className="text-xs text-slate-500">
+                  Astuce : en « busy only », seuls les jours réservés apparaissent.
+                </p>
+              </div>
+              <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a
+                  href={googleCalendarSummer2026Url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-full bg-white border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-sm font-semibold text-slate-900"
+                  aria-label="Ouvrir le calendrier sur juillet 2026"
+                >
+                  Voir l'été 2026
+                </a>
+              </div>
+            </div>
             {googleCalendarEmbedSrc ? (
               <div className="relative w-full aspect-[16/10] bg-white">
                 <iframe
@@ -640,7 +663,6 @@ export default function VillaLandingPage() {
                   title="Calendrier des disponibilités"
                   className="absolute inset-0 w-full h-full"
                   loading="lazy"
-                  referrerPolicy="no-referrer"
                 />
               </div>
             ) : (
