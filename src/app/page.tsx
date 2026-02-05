@@ -47,6 +47,8 @@ const STAGGER_CONTAINER = {
 export default function VillaLandingPage() {
   const [showAllRooms, setShowAllRooms] = useState(false);
   const [showAllGallery, setShowAllGallery] = useState(false);
+  const googleCalendarEmbedSrc = 'https://calendar.google.com/calendar/embed?src=a293ca9a2316cdd2057751c81046ecfa608f3041219e969844f1e5d5fb1cca29%40group.calendar.google.com&ctz=Europe%2FParis';
+  const googleCalendarPublicUrl = 'https://calendar.google.com/calendar/embed?src=a293ca9a2316cdd2057751c81046ecfa608f3041219e969844f1e5d5fb1cca29%40group.calendar.google.com&ctz=Europe%2FParis';
   const heroVideos = useMemo(
     () => [
       '/images/villa/videos/PISCINE%20AV%20HAUT%20GOOD%20%28Vertical%29.mp4',
@@ -616,6 +618,56 @@ export default function VillaLandingPage() {
               <p className="text-xs text-slate-500 mt-3">
                 Tarifs susceptibles d'évoluer. Conditions et frais éventuels selon plateforme.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-white" aria-labelledby="disponibilites-title">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h2 id="disponibilites-title" className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Disponibilités</h2>
+            <p className="text-lg text-slate-600">
+              Calendrier mis à jour automatiquement. Les dates affichées correspondent aux nuits indisponibles.
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto bg-slate-50 rounded-3xl border border-slate-200/70 overflow-hidden">
+            {googleCalendarEmbedSrc ? (
+              <div className="relative w-full aspect-[16/10] bg-white">
+                <iframe
+                  src={googleCalendarEmbedSrc}
+                  title="Calendrier des disponibilités"
+                  className="absolute inset-0 w-full h-full"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            ) : (
+              <div className="p-8 text-center text-slate-600">
+                <p className="font-semibold text-slate-900">Calendrier à configurer</p>
+                <p className="mt-2">
+                  Colle ici l'URL d'intégration Google Calendar (embed) pour afficher les disponibilités.
+                </p>
+              </div>
+            )}
+
+            <div className="p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-sm text-slate-600">
+                Pour confirmer une date et le tarif exact, consulte le calendrier de réservation.
+              </p>
+              {googleCalendarPublicUrl ? (
+                <Link
+                  href={googleCalendarPublicUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-sm font-semibold text-slate-900"
+                  aria-label="Ouvrir le calendrier des disponibilités en plein écran"
+                >
+                  Ouvrir en plein écran
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                </Link>
+              ) : null}
             </div>
           </div>
         </div>
