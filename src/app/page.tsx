@@ -112,7 +112,7 @@ export default function VillaLandingPage() {
                 Villa de Luxe Montpellier <br/> Piscine Privée & 6 Chambres
               </h1>
               <p className="text-lg md:text-xl text-slate-100 mb-8 max-w-2xl mx-auto font-light">
-                Location saisonnière exceptionnelle : 265m² avec piscine privée, jardin tropical, 6 chambres climatisées pour 12 voyageurs.
+                Location saisonnière exceptionnelle : grande villa avec piscine privée, jardin tropical, 6 chambres climatisées pour 12 voyageurs.
                 À 7 minutes du centre de Montpellier.
               </p>
 
@@ -187,7 +187,7 @@ export default function VillaLandingPage() {
               Location Villa Luxe Montpellier <br/><span className="text-emerald-600">Quartier Antigone</span>
             </h2>
             <p className="text-lg text-slate-600 leading-relaxed">
-              <strong>Villa de vacances haut de gamme à Montpellier</strong> : découvrez cette maison d'architecte de 265m² avec piscine privée chauffée,
+              <strong>Villa de vacances haut de gamme à Montpellier</strong> : découvrez cette maison d'architecte avec piscine privée chauffée,
               nichée dans un jardin tropical luxuriant entièrement clos. Idéale pour location saisonnière en famille ou entre amis (jusqu'à 12 personnes).
             </p>
             <p className="text-lg text-slate-600 leading-relaxed mt-3">
@@ -195,9 +195,9 @@ export default function VillaLandingPage() {
               oasis urbain, à quelques minutes seulement de la Place de la Comédie et du quartier historique de Montpellier.
             </p>
             <ul className="space-y-3" role="list">
-              <ListItem text="Pièce de vie de +100m² baignée de lumière" />
-              <ListItem text="Suite parentale de 40m² avec balnéo" />
-              <ListItem text="Cuisine d'été & terrasse en bois exotique" />
+              <ListItem text="Pièce de vie spacieuse et baignée de lumière" />
+              <ListItem text="Suite parentale spacieuse avec balnéo" />
+              <ListItem text="Cuisine d'été équipée" />
               <ListItem text="3 min du tram, 5 min de la Gare St Roch" />
               <ListItem text="Jardin tropical avec palmiers et bananiers" />
               <ListItem text="Barbecue Weber & plancha pour vos soirées" />
@@ -244,7 +244,7 @@ export default function VillaLandingPage() {
           <div className="text-center mb-16">
             <h2 id="chambres-title" className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">6 Chambres Spacieuses & Espace Spa Privatif</h2>
             <p className="text-slate-600 max-w-3xl mx-auto">
-              Hébergement haut de gamme avec 6 chambres climatisées, literie hôtelière premium, 4 salles de bain modernes dont une avec baignoire balnéo.
+              Hébergement haut de gamme avec 6 chambres climatisées, literie soignée, 4 salles de bain modernes dont une avec baignoire balnéo.
               Capacité totale : 12 voyageurs pour votre location de villa à Montpellier.
             </p>
           </div>
@@ -259,20 +259,18 @@ export default function VillaLandingPage() {
             <RoomCard
               image="/images/villa/chambre1"
               title="Suite Parentale"
-              desc="Lit King Size, Terrasse privée, Dressing"
-              badge="40m²"
+              desc="Lit King Size, Dressing, Salle de bain balnéo"
             />
             <RoomCard
               image="/images/villa/sdb-balneo"
-              title="Espace Bien-être"
-              desc="Baignoire Balnéo, Douche italienne"
+              title="Spa Privatif"
+              desc="Baignoire balnéo, Douche à l'italienne"
               badge="Spa"
             />
             <RoomCard
               image="/images/villa/chambre5"
-              title="Espace Enfants"
-              desc="4 couchages (lits superposés), idéal pour les cousins"
-              badge="4 lits"
+              title="Chambre Lit Double"
+              desc="Lit double (et une chambre enfants séparée avec lits superposés)"
             />
           </motion.div>
 
@@ -324,6 +322,13 @@ export default function VillaLandingPage() {
               </p>
             </blockquote>
             <cite className="text-sm text-emerald-300 not-italic">— Camille, Paris • Juillet 2021</cite>
+            <p className="text-xs text-emerald-200/90 mt-2">
+              Avis vérifié publié sur{' '}
+              <Link href={AIRBNB_URL} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-white">
+                Airbnb
+              </Link>
+              .
+            </p>
 
             <div className="pt-8 border-t border-emerald-700/50 grid md:grid-cols-3 gap-6 text-sm text-emerald-100">
               <div className="flex flex-col items-center gap-2">
@@ -332,11 +337,11 @@ export default function VillaLandingPage() {
               </div>
               <div className="flex flex-col items-center gap-2">
                 <CheckCircle className="w-6 h-6 text-emerald-400" aria-hidden="true" />
-                <span className="font-semibold">Linge hôtelier fourni</span>
+                <span className="font-semibold">Linge hôtelier et serviettes fournis</span>
               </div>
               <div className="flex flex-col items-center gap-2">
                 <Info className="w-6 h-6 text-emerald-400" aria-hidden="true" />
-                <span className="font-semibold">Présence de Lulu la tortue 🐢</span>
+                <span className="font-semibold">Arrivée autonome</span>
               </div>
             </div>
           </div>
@@ -353,7 +358,7 @@ export default function VillaLandingPage() {
             </h2>
 <p className="text-lg text-slate-600">
   <strong>Situation exceptionnelle</strong> au cœur de Montpellier, entre le calme d'Antigone, Port Marianne et l'effervescence de l'Écusson.
-  Proche de toutes commodités : tram ligne 1 à 3 min, Gare Saint-Roch à 5 min, et plages méditerranéennes à 25 min en voiture.
+  Proche de toutes commodités : tram ligne 1 à 3 min à pied, Gare Saint-Roch à 5 min à pied, et plages méditerranéennes à 25 min en voiture.
   Un emplacement stratégique à deux pas du centre historique et des principaux axes de transport.
 </p>
           </div>
@@ -361,21 +366,21 @@ export default function VillaLandingPage() {
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <div className="space-y-4">
               <h3 className="font-bold text-lg mb-4 text-slate-900">Points d'Intérêt Touristiques</h3>
-              <LocationItem icon={MapPin} label="Place de la Comédie - Centre historique" distance="7 min" />
-              <LocationItem icon={MapPin} label="Gare TGV Saint-Roch" distance="5 min" />
-              <LocationItem icon={Waves} label="Plages méditerranéennes (Carnon, Palavas)" distance="25 min" />
-              <LocationItem icon={UtensilsCrossed} label="Restaurants gastronomiques & Bars" distance="5 min" />
-              <LocationItem icon={MapPin} label="Musée Fabre & Opéra Comédie" distance="10 min" />
-              <LocationItem icon={MapPin} label="Jardin des Plantes" distance="8 min" />
+              <LocationItem icon={MapPin} label="Place de la Comédie - Centre historique" distance="7 min à pied" />
+              <LocationItem icon={MapPin} label="Gare TGV Saint-Roch" distance="5 min à pied" />
+              <LocationItem icon={Waves} label="Plages méditerranéennes (Carnon, Palavas)" distance="25 min en voiture" />
+              <LocationItem icon={UtensilsCrossed} label="Restaurants gastronomiques & Bars" distance="5 min à pied" />
+              <LocationItem icon={MapPin} label="Musée Fabre & Opéra Comédie" distance="10 min à pied" />
+              <LocationItem icon={MapPin} label="Jardin des Plantes" distance="8 min en voiture ou 20 min à pied" />
             </div>
 
             <div className="space-y-4">
               <h3 className="font-bold text-lg mb-4 text-slate-900">Accès & Transports</h3>
               <LocationItem icon={MapPin} label="Arrêt Tram ligne 1 (Antigone)" distance="3 min à pied" />
               <LocationItem icon={Car} label="Garage privé sécurisé (inclus)" distance="Sur place" />
-              <LocationItem icon={MapPin} label="Aéroport Montpellier Méditerranée" distance="15 min" />
-              <LocationItem icon={MapPin} label="Autoroute A9 (Paris-Barcelone)" distance="10 min" />
-              <LocationItem icon={MapPin} label="Location vélos Vélomagg" distance="2 min" />
+              <LocationItem icon={MapPin} label="Aéroport Montpellier Méditerranée" distance="15 min en voiture" />
+              <LocationItem icon={MapPin} label="Autoroute A9 (Paris-Barcelone)" distance="10 min en voiture" />
+              <LocationItem icon={MapPin} label="Location vélos Vélomagg" distance="5 min à pied" />
             </div>
           </div>
         </div>
