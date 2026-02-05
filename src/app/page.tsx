@@ -1015,8 +1015,28 @@ function AvailabilityCalendar({ blockedDates }: { blockedDates: Set<string> }) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  const initialOffset = useMemo(() => {
+    for (let m = 0; m < 12; m++) {
+      const probe = new Date(today.getFullYear(), today.getMonth() + m, 1);
+      const daysInMonth = new Date(probe.getFullYear(), probe.getMonth() + 1, 0).getDate();
+      for (let d = 1; d <= daysInMonth; d++) {
+        const ds = `${probe.getFullYear()}-${String(probe.getMonth() + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const date = new Date(probe.getFullYear(), probe.getMonth(), d);
+        if (date >= today && !blockedDates.has(ds)) {
+          return Math.floor(m / 4) * 4;
+        }
+      }
+    }
+    return 0;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blockedDates.size]);
+
   const [offset, setOffset] = useState(0);
   const MONTHS_PER_PAGE = 4;
+
+  useEffect(() => {
+    if (initialOffset > 0) setOffset(initialOffset);
+  }, [initialOffset]);
 
   const months: { year: number; month: number }[] = [];
   const startMonth = new Date(today.getFullYear(), today.getMonth() + offset, 1);
