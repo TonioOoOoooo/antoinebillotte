@@ -1015,9 +1015,12 @@ function AvailabilityCalendar({ blockedDates }: { blockedDates: Set<string> }) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  const [offset, setOffset] = useState(0);
+  const MONTHS_PER_PAGE = 4;
+
   const months: { year: number; month: number }[] = [];
-  const startMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-  for (let i = 0; i < 4; i++) {
+  const startMonth = new Date(today.getFullYear(), today.getMonth() + offset, 1);
+  for (let i = 0; i < MONTHS_PER_PAGE; i++) {
     const d = new Date(startMonth);
     d.setMonth(d.getMonth() + i);
     months.push({ year: d.getFullYear(), month: d.getMonth() });
@@ -1039,57 +1042,79 @@ function AvailabilityCalendar({ blockedDates }: { blockedDates: Set<string> }) {
   }
 
   return (
-    <div className="grid md:grid-cols-2 gap-6">
-      {months.map(({ year, month }) => {
-        const daysInMonth = getDaysInMonth(year, month);
-        const firstDay = getFirstDayOfWeek(year, month);
-        const cells: React.ReactNode[] = [];
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <button
+          onClick={() => setOffset((o) => Math.max(o - MONTHS_PER_PAGE, 0))}
+          disabled={offset === 0}
+          className="inline-flex items-center gap-1 px-4 py-2 rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          ← Précédent
+        </button>
+        <span className="text-sm text-slate-500 font-medium">
+          {MONTH_NAMES[months[0].month]} {months[0].year} — {MONTH_NAMES[months[MONTHS_PER_PAGE - 1].month]} {months[MONTHS_PER_PAGE - 1].year}
+        </span>
+        <button
+          onClick={() => setOffset((o) => o + MONTHS_PER_PAGE)}
+          disabled={offset + MONTHS_PER_PAGE >= 12}
+          className="inline-flex items-center gap-1 px-4 py-2 rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          Suivant →
+        </button>
+      </div>
 
-        for (let i = 0; i < firstDay; i++) {
-          cells.push(<div key={`empty-${i}`} />);
-        }
+      <div className="grid md:grid-cols-2 gap-6">
+        {months.map(({ year, month }) => {
+          const daysInMonth = getDaysInMonth(year, month);
+          const firstDay = getFirstDayOfWeek(year, month);
+          const cells: React.ReactNode[] = [];
 
-        for (let day = 1; day <= daysInMonth; day++) {
-          const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-          const date = new Date(year, month, day);
-          const isPast = date < today;
-          const isBlocked = blockedDates.has(dateStr);
-
-          let cellClass = 'rounded-lg text-center py-2 text-sm font-medium transition-colors ';
-          if (isPast) {
-            cellClass += 'bg-slate-50 text-slate-300 border border-slate-100';
-          } else if (isBlocked) {
-            cellClass += 'bg-red-50 text-red-700 border border-red-200';
-          } else {
-            cellClass += 'bg-emerald-50 text-emerald-800 border border-emerald-200';
+          for (let i = 0; i < firstDay; i++) {
+            cells.push(<div key={`empty-${i}`} />);
           }
 
-          cells.push(
-            <div key={dateStr} className={cellClass}>
-              {day}
+          for (let day = 1; day <= daysInMonth; day++) {
+            const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const date = new Date(year, month, day);
+            const isPast = date < today;
+            const isBlocked = blockedDates.has(dateStr);
+
+            let cellClass = 'rounded-lg text-center py-2 text-sm font-medium transition-colors ';
+            if (isPast) {
+              cellClass += 'bg-slate-50 text-slate-300 border border-slate-100';
+            } else if (isBlocked) {
+              cellClass += 'bg-red-50 text-red-700 border border-red-200';
+            } else {
+              cellClass += 'bg-emerald-50 text-emerald-800 border border-emerald-200';
+            }
+
+            cells.push(
+              <div key={dateStr} className={cellClass}>
+                {day}
+              </div>
+            );
+          }
+
+          return (
+            <div
+              key={`${year}-${month}`}
+              className="bg-white rounded-2xl border border-slate-200/70 shadow-sm p-6"
+            >
+              <h3 className="text-lg font-bold text-slate-900 mb-4 text-center">
+                {MONTH_NAMES[month]} {year}
+              </h3>
+              <div className="grid grid-cols-7 gap-1 mb-2">
+                {DAYS.map((d) => (
+                  <div key={d} className="text-center text-xs font-semibold text-slate-400 py-1">
+                    {d}
+                  </div>
+                ))}
+              </div>
+              <div className="grid grid-cols-7 gap-1">{cells}</div>
             </div>
           );
-        }
-
-        return (
-          <div
-            key={`${year}-${month}`}
-            className="bg-white rounded-2xl border border-slate-200/70 shadow-sm p-6"
-          >
-            <h3 className="text-lg font-bold text-slate-900 mb-4 text-center">
-              {MONTH_NAMES[month]} {year}
-            </h3>
-            <div className="grid grid-cols-7 gap-1 mb-2">
-              {DAYS.map((d) => (
-                <div key={d} className="text-center text-xs font-semibold text-slate-400 py-1">
-                  {d}
-                </div>
-              ))}
-            </div>
-            <div className="grid grid-cols-7 gap-1">{cells}</div>
-          </div>
-        );
-      })}
+        })}
+      </div>
     </div>
   );
 }
