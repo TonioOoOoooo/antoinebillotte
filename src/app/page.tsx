@@ -45,6 +45,8 @@ const STAGGER_CONTAINER = {
 };
 
 export default function VillaLandingPage() {
+  const [showAllRooms, setShowAllRooms] = useState(false);
+  const [showAllGallery, setShowAllGallery] = useState(false);
   const heroVideos = useMemo(
     () => [
       '/images/villa/videos/PISCINE%20AV%20HAUT%20GOOD%20%28Vertical%29.mp4',
@@ -112,8 +114,8 @@ export default function VillaLandingPage() {
                 Villa de Luxe Montpellier <br/> Piscine Privée & 6 Chambres
               </h1>
               <p className="text-lg md:text-xl text-slate-100 mb-8 max-w-2xl mx-auto font-light">
-                Location saisonnière exceptionnelle : grande villa avec piscine privée, jardin tropical, 6 chambres climatisées pour 12 voyageurs.
-                À 7 minutes du centre de Montpellier.
+                Vivez une expérience unique au cœur de Montpellier : demeure de 265m², oasis de calme avec jardin et piscine, à 7 min à pied de la place de la Comédie.
+                Idéal pour 12 voyageurs. (Fêtes non autorisées)
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -187,7 +189,7 @@ export default function VillaLandingPage() {
               Location Villa Luxe Montpellier <br/><span className="text-emerald-600">Quartier Antigone</span>
             </h2>
             <p className="text-lg text-slate-600 leading-relaxed">
-              <strong>Villa de vacances haut de gamme à Montpellier</strong> : découvrez cette maison d'architecte avec piscine privée chauffée,
+              <strong>Villa de vacances haut de gamme à Montpellier</strong> : découvrez cette oasis citadine de 265m² avec jardin et piscine privée,
               nichée dans un jardin tropical luxuriant entièrement clos. Idéale pour location saisonnière en famille ou entre amis (jusqu'à 12 personnes).
             </p>
             <p className="text-lg text-slate-600 leading-relaxed mt-3">
@@ -195,10 +197,10 @@ export default function VillaLandingPage() {
               oasis urbain, à quelques minutes seulement de la Place de la Comédie et du quartier historique de Montpellier.
             </p>
             <ul className="space-y-3" role="list">
-              <ListItem text="Pièce de vie spacieuse et baignée de lumière" />
-              <ListItem text="Suite parentale spacieuse avec balnéo" />
+              <ListItem text="Pièce de vie de presque 100m² baignée de lumière" />
+              <ListItem text="Suite parentale de presque 40m² avec douche et baignoire jacuzzi" />
               <ListItem text="Cuisine d'été équipée" />
-              <ListItem text="3 min du tram, 5 min de la Gare St Roch" />
+              <ListItem text="Tout à pied : tram (3 min), gare (5 min), Comédie (7 min)" />
               <ListItem text="Jardin tropical avec palmiers et bananiers" />
               <ListItem text="Barbecue Weber & plancha pour vos soirées" />
             </ul>
@@ -229,10 +231,12 @@ export default function VillaLandingPage() {
             <div className="space-y-4 mt-8">
               <PhotoCard src="/images/villa/salon" alt="Salon spacieux avec canapé et décoration moderne" aspectRatio="aspect-[3/4]" />
               <PhotoCard src="/images/villa/cuisine" alt="Cuisine équipée avec îlot central" aspectRatio="aspect-square" />
+              <PhotoCard src="/images/villa/Autres/Terrace_Piscine.jpeg" alt="Terrasse et piscine privée en hyper-centre" aspectRatio="aspect-[3/4]" />
             </div>
             <div className="space-y-4">
               <PhotoCard src="/images/villa/repas" alt="Espace repas avec grande table" aspectRatio="aspect-square" />
               <PhotoCard src="/images/villa/patio" alt="Patio extérieur avec ambiance soirée" aspectRatio="aspect-[3/4]" />
+              <PhotoCard src="/images/villa/SDB/SDB_Parents.jpeg" alt="Salle de bain parentale avec baignoire jacuzzi" aspectRatio="aspect-square" />
             </div>
           </motion.div>
         </div>
@@ -249,43 +253,220 @@ export default function VillaLandingPage() {
             </p>
           </div>
 
-          <motion.div
-            className="grid md:grid-cols-3 gap-6"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={STAGGER_CONTAINER}
-          >
-            <RoomCard
-              image="/images/villa/chambre1"
-              title="Suite Parentale"
-              desc="Lit King Size, Dressing, Salle de bain balnéo"
-            />
-            <RoomCard
-              image="/images/villa/sdb-balneo"
-              title="Spa Privatif"
-              desc="Baignoire balnéo, Douche à l'italienne"
-              badge="Spa"
-            />
-            <RoomCard
-              image="/images/villa/chambre5"
-              title="Chambre Lit Double"
-              desc="Lit double (et une chambre enfants séparée avec lits superposés)"
-            />
-          </motion.div>
+          {(() => {
+            const rooms = [
+              {
+                image: '/images/villa/Chambres/Chambre_Parentale.jpeg',
+                title: 'Suite Parentale',
+                desc: "Lit King Size (200×200), dressing, terrasse privée, SDB avec douche & baignoire jacuzzi",
+                badge: 'King',
+              },
+              {
+                image: '/images/villa/Chambres/Chambre_Leo.jpeg',
+                title: 'Chambre 2',
+                desc: '2 lits simples (90×200), modulables en grand lit',
+                badge: '2×90',
+              },
+              {
+                image: '/images/villa/Chambres/Chambre_Ambre.jpeg',
+                title: 'Chambre 3',
+                desc: 'Lit Queen Size (160×200)',
+                badge: 'Queen',
+              },
+              {
+                image: '/images/villa/Chambres/Chambre_Theo.jpeg',
+                title: 'Chambre 4',
+                desc: 'Lit double (140×200)',
+                badge: '140',
+              },
+              {
+                image: '/images/villa/Chambres/Chambre_Theodore.jpeg',
+                title: 'Chambre 5',
+                desc: 'Lit double (140×200)',
+                badge: '140',
+              },
+              {
+                image: '/images/villa/Chambres/Chambre_RDC.jpeg',
+                title: 'Chambre 6 (RDC)',
+                desc: 'Lit 160×200 (non climatisée)',
+                badge: 'RDC',
+              },
+            ];
 
-          <div className="mt-12 text-center">
-            <Link
-              href={LEBONCOIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-emerald-600 font-semibold hover:underline inline-flex items-center gap-1"
-              aria-label="Voir toutes les photos des 6 chambres sur Leboncoin"
-            >
-              Voir toutes les photos des 6 chambres
-              <ArrowRight className="w-4 h-4" aria-hidden="true" />
-            </Link>
+            const visibleRooms = showAllRooms ? rooms : rooms.slice(0, 3);
+
+            return (
+              <>
+                <motion.div
+                  id="rooms-grid"
+                  className="grid md:grid-cols-3 gap-6"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={STAGGER_CONTAINER}
+                >
+                  {visibleRooms.map((room) => (
+                    <RoomCard
+                      key={room.title}
+                      image={room.image}
+                      title={room.title}
+                      desc={room.desc}
+                      badge={room.badge}
+                    />
+                  ))}
+                </motion.div>
+
+                <div className="mt-10 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowAllRooms((v) => !v)}
+                    aria-expanded={showAllRooms}
+                    aria-controls="rooms-grid"
+                    className="px-5 py-2.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-sm font-semibold text-slate-900"
+                  >
+                    {showAllRooms ? 'Voir moins' : 'Voir les 6 chambres'}
+                  </button>
+                </div>
+              </>
+            );
+          })()}
+        </div>
+      </section>
+
+      <section className="py-20 bg-white" aria-labelledby="galerie-title">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 id="galerie-title" className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Galerie</h2>
+            <p className="text-slate-600 max-w-3xl mx-auto">
+              Quelques photos pour vous projeter : jardin, piscine, cuisine d'été et salles de bain.
+            </p>
           </div>
+
+          {(() => {
+            const items = [
+              {
+                src: '/images/villa/Autres/Vue_Maison_Haut.jpeg',
+                alt: "Vue de la maison depuis l'étage",
+                aspectRatio: 'aspect-[3/4]',
+              },
+              {
+                src: '/images/villa/Autres/Terrace_Piscine.jpeg',
+                alt: 'Terrasse avec piscine privée',
+                aspectRatio: 'aspect-square',
+              },
+              {
+                src: '/images/villa/Autres/Jardin_derriere.jpeg',
+                alt: 'Jardin privé luxuriant',
+                aspectRatio: 'aspect-square',
+              },
+              {
+                src: '/images/villa/Autres/hero-pool.webp',
+                alt: 'Piscine privée et jardin luxuriant',
+                aspectRatio: 'aspect-[3/4]',
+              },
+              {
+                src: '/images/villa/Autres/hero-pool3.webp',
+                alt: 'Piscine privée vue depuis la terrasse',
+                aspectRatio: 'aspect-square',
+              },
+              {
+                src: '/images/villa/Autres/hero-pool%202.webp',
+                alt: 'Piscine privée et espace détente',
+                aspectRatio: 'aspect-square',
+              },
+              {
+                src: "/images/villa/Autres/Cuisine_ete.jpeg",
+                alt: "Cuisine d'été équipée",
+                aspectRatio: 'aspect-[3/4]',
+              },
+              {
+                src: '/images/villa/Autres/cuisine.webp',
+                alt: 'Cuisine moderne entièrement équipée',
+                aspectRatio: 'aspect-square',
+              },
+              {
+                src: '/images/villa/Autres/Cuisine_ete_2.jpeg',
+                alt: "Cuisine d'été et coin repas",
+                aspectRatio: 'aspect-square',
+              },
+              {
+                src: '/images/villa/Autres/patio.webp',
+                alt: 'Patio extérieur',
+                aspectRatio: 'aspect-[3/4]',
+              },
+              {
+                src: '/images/villa/Autres/repas.webp',
+                alt: 'Espace repas',
+                aspectRatio: 'aspect-square',
+              },
+              {
+                src: '/images/villa/Autres/salon.webp',
+                alt: 'Salon',
+                aspectRatio: 'aspect-square',
+              },
+              {
+                src: '/images/villa/SDB/SDB_Parents.jpeg',
+                alt: 'Salle de bain parentale avec baignoire jacuzzi',
+                aspectRatio: 'aspect-square',
+              },
+              {
+                src: '/images/villa/SDB/SDB_RDC.jpeg',
+                alt: 'Salle de douche au rez-de-chaussée',
+                aspectRatio: 'aspect-[3/4]',
+              },
+              {
+                src: '/images/villa/SDB/SDB_Enfants1.jpeg',
+                alt: 'Salle de bain enfants',
+                aspectRatio: 'aspect-square',
+              },
+              {
+                src: '/images/villa/Autres/Jardin_derriere_2.jpeg',
+                alt: 'Jardin et terrasse côté piscine',
+                aspectRatio: 'aspect-[3/4]',
+              },
+              {
+                src: '/images/villa/Autres/Jardin_derriere_3.jpeg',
+                alt: 'Jardin et coin détente',
+                aspectRatio: 'aspect-square',
+              },
+            ];
+
+            const visibleItems = showAllGallery ? items : items.slice(0, 6);
+
+            return (
+              <>
+                <motion.div
+                  id="gallery-grid"
+                  className="grid grid-cols-2 md:grid-cols-3 gap-4"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={STAGGER_CONTAINER}
+                >
+                  {visibleItems.map((item) => (
+                    <PhotoCard
+                      key={item.src}
+                      src={item.src}
+                      alt={item.alt}
+                      aspectRatio={item.aspectRatio}
+                    />
+                  ))}
+                </motion.div>
+
+                <div className="mt-10 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowAllGallery((v) => !v)}
+                    aria-expanded={showAllGallery}
+                    aria-controls="gallery-grid"
+                    className="px-5 py-2.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-sm font-semibold text-slate-900"
+                  >
+                    {showAllGallery ? 'Voir moins' : 'Voir plus de photos'}
+                  </button>
+                </div>
+              </>
+            );
+          })()}
         </div>
       </section>
 
@@ -358,7 +539,7 @@ export default function VillaLandingPage() {
             </h2>
 <p className="text-lg text-slate-600">
   <strong>Situation exceptionnelle</strong> au cœur de Montpellier, entre le calme d'Antigone, Port Marianne et l'effervescence de l'Écusson.
-  Proche de toutes commodités : tram ligne 1 à 3 min à pied, Gare Saint-Roch à 5 min à pied, et plages méditerranéennes à 25 min en voiture.
+  Proche de toutes commodités : tram ligne 1 à 3 min à pied, Gare Saint-Roch à 5 min à pied, et plages méditerranéennes à 20 min en voiture.
   Un emplacement stratégique à deux pas du centre historique et des principaux axes de transport.
 </p>
           </div>
@@ -368,7 +549,7 @@ export default function VillaLandingPage() {
               <h3 className="font-bold text-lg mb-4 text-slate-900">Points d'Intérêt Touristiques</h3>
               <LocationItem icon={MapPin} label="Place de la Comédie - Centre historique" distance="7 min à pied" />
               <LocationItem icon={MapPin} label="Gare TGV Saint-Roch" distance="5 min à pied" />
-              <LocationItem icon={Waves} label="Plages méditerranéennes (Carnon, Palavas)" distance="25 min en voiture" />
+              <LocationItem icon={Waves} label="Plages méditerranéennes (Carnon, Palavas)" distance="20 min en voiture" />
               <LocationItem icon={UtensilsCrossed} label="Restaurants gastronomiques & Bars" distance="5 min à pied" />
               <LocationItem icon={MapPin} label="Musée Fabre & Opéra Comédie" distance="10 min à pied" />
               <LocationItem icon={MapPin} label="Jardin des Plantes" distance="8 min en voiture ou 20 min à pied" />
@@ -589,13 +770,16 @@ function ListItem({ text }: { text: string }) {
 }
 
 function PhotoCard({ src, alt, aspectRatio }: { src: string, alt: string, aspectRatio: string }) {
+  const resolvedSrc = /\.(avif|webp|jpe?g|png)$/i.test(src) ? src : `${src}.webp`;
   return (
     <motion.div
       className={`${aspectRatio} rounded-2xl overflow-hidden relative shadow-lg group border border-slate-200/60 bg-white`}
+      initial="hidden"
+      animate="visible"
       variants={FADE_UP}
     >
       <Image
-        src={`${src}.webp`}
+        src={resolvedSrc}
         alt={alt}
         fill
         className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -606,9 +790,12 @@ function PhotoCard({ src, alt, aspectRatio }: { src: string, alt: string, aspect
 }
 
 function RoomCard({ image, title, desc, badge }: { image: string, title: string, desc: string, badge?: string }) {
+  const resolvedSrc = /\.(avif|webp|jpe?g|png)$/i.test(image) ? image : `${image}.webp`;
   return (
     <motion.div
       className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/60 hover:border-slate-200"
+      initial="hidden"
+      animate="visible"
       variants={FADE_UP}
       whileHover={{ y: -5 }}
     >
@@ -619,7 +806,7 @@ function RoomCard({ image, title, desc, badge }: { image: string, title: string,
           </div>
         )}
         <Image
-          src={`${image}.webp`}
+          src={resolvedSrc}
           alt={title}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-700"
