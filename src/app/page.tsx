@@ -75,14 +75,14 @@ export default function VillaLandingPage() {
   }, []);
   const heroVideos = useMemo(
     () => [
-      '/images/villa/videos/PISCINE%20AV%20HAUT%20GOOD%20%28Vertical%29.mp4',
-      '/images/villa/videos/PISCINE%20AR%20GOOD.mp4',
-      '/images/villa/videos/PATIO.mp4',
-      '/images/villa/videos/CUISINE.mp4',
-      '/images/villa/videos/SAM.mp4',
-      '/images/villa/videos/CHAMBRE.mp4',
-      '/images/villa/videos/CHAMBRE%20AMBRE.mp4',
-      '/images/villa/videos/PISCINE%20AR%20BAD.mp4',
+      '/images/villa/videos/piscine-av-haut.mp4',
+      '/images/villa/videos/piscine-ar-good.mp4',
+      '/images/villa/videos/patio.mp4',
+      '/images/villa/videos/cuisine.mp4',
+      '/images/villa/videos/sam.mp4',
+      '/images/villa/videos/chambre.mp4',
+      '/images/villa/videos/chambre-ambre.mp4',
+      '/images/villa/videos/piscine-ar-bad.mp4',
     ],
     []
   );
