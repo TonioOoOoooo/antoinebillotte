@@ -4,7 +4,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   MapPin,
   Users,
@@ -21,13 +21,38 @@ import {
   Tv,
   UtensilsCrossed,
   Share2,
-  Mail
+  Mail,
+  ChevronLeft,
+  ChevronRight,
+  X as XIcon,
+  Phone,
+  Calendar
 } from 'lucide-react';
 
 // --- CONFIGURATION ---
 const AIRBNB_URL = "https://www.airbnb.fr/h/villa-exception-montpellier";
 const ABRITEL_URL = "https://www.abritel.fr/location-vacances/p2582877?dateless=true";
 const LEBONCOIN_URL = "https://www.leboncoin.fr/ad/locations_saisonnieres/3018502383";
+
+const GALLERY_ITEMS = [
+  { src: '/images/villa/Autres/Vue_Maison_Haut.jpeg', alt: "Vue de la maison depuis l'étage", aspectRatio: 'aspect-[3/4]' },
+  { src: '/images/villa/Autres/Terrace_Piscine.jpeg', alt: 'Terrasse avec piscine privée', aspectRatio: 'aspect-square' },
+  { src: '/images/villa/Autres/Jardin_derriere.jpeg', alt: 'Jardin privé luxuriant', aspectRatio: 'aspect-square' },
+  { src: '/images/villa/Autres/hero-pool.webp', alt: 'Piscine privée et jardin luxuriant', aspectRatio: 'aspect-[3/4]' },
+  { src: '/images/villa/Autres/hero-pool3.webp', alt: 'Piscine privée vue depuis la terrasse', aspectRatio: 'aspect-square' },
+  { src: '/images/villa/Autres/hero-pool%202.webp', alt: 'Piscine privée et espace détente', aspectRatio: 'aspect-square' },
+  { src: '/images/villa/Autres/Cuisine_ete.jpeg', alt: "Cuisine d'été équipée", aspectRatio: 'aspect-[3/4]' },
+  { src: '/images/villa/Autres/cuisine.webp', alt: 'Cuisine moderne entièrement équipée', aspectRatio: 'aspect-square' },
+  { src: '/images/villa/Autres/Cuisine_ete_2.jpeg', alt: "Cuisine d'été et coin repas", aspectRatio: 'aspect-square' },
+  { src: '/images/villa/Autres/patio.webp', alt: 'Patio extérieur', aspectRatio: 'aspect-[3/4]' },
+  { src: '/images/villa/Autres/repas.webp', alt: 'Espace repas', aspectRatio: 'aspect-square' },
+  { src: '/images/villa/Autres/salon.webp', alt: 'Salon', aspectRatio: 'aspect-square' },
+  { src: '/images/villa/SDB/SDB_Parents.jpeg', alt: 'Salle de bain parentale avec baignoire jacuzzi', aspectRatio: 'aspect-square' },
+  { src: '/images/villa/SDB/SDB_RDC.jpeg', alt: 'Salle de douche au rez-de-chaussée', aspectRatio: 'aspect-[3/4]' },
+  { src: '/images/villa/SDB/SDB_Enfants1.jpeg', alt: 'Salle de bain enfants', aspectRatio: 'aspect-square' },
+  { src: '/images/villa/Autres/Jardin_derriere_2.jpeg', alt: 'Jardin et terrasse côté piscine', aspectRatio: 'aspect-[3/4]' },
+  { src: '/images/villa/Autres/Jardin_derriere_3.jpeg', alt: 'Jardin et coin détente', aspectRatio: 'aspect-square' },
+];
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 20 },
@@ -50,6 +75,31 @@ export default function VillaLandingPage() {
   const [blockedDates, setBlockedDates] = useState<Set<string>>(new Set());
   const [calendarLoading, setCalendarLoading] = useState(true);
   const [calendarError, setCalendarError] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Navbar scroll effect
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // First available date for hero badge
+  const firstAvailableDate = useMemo(() => {
+    if (blockedDates.size === 0) return null;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    for (let i = 0; i < 365; i++) {
+      const d = new Date(today);
+      d.setDate(d.getDate() + i);
+      const ds = d.toISOString().slice(0, 10);
+      if (!blockedDates.has(ds)) {
+        return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      }
+    }
+    return null;
+  }, [blockedDates]);
 
   useEffect(() => {
     fetch('/api/calendar')
@@ -96,11 +146,11 @@ export default function VillaLandingPage() {
     <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 text-slate-900 selection:bg-emerald-200 selection:text-emerald-900">
 
       {/* --- NAVIGATION --- */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_0_0_rgba(15,23,42,0.06)]">
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/90 backdrop-blur-xl border-b border-slate-200/60 shadow-sm' : 'bg-transparent border-b border-transparent'}`}>
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2 text-slate-900">
-            <Waves className="w-5 h-5 text-emerald-600" />
-            <span className="font-semibold tracking-tight text-emerald-700">maisonmontpellier.fr</span>
+          <div className={`flex items-center gap-2 transition-colors duration-500 ${scrolled ? 'text-slate-900' : 'text-white'}`}>
+            <Waves className={`w-5 h-5 transition-colors duration-500 ${scrolled ? 'text-emerald-600' : 'text-emerald-300'}`} />
+            <span className={`font-semibold tracking-tight transition-colors duration-500 ${scrolled ? 'text-emerald-700' : 'text-white'}`}>maisonmontpellier.fr</span>
           </div>
           <Link
             href={LEBONCOIN_URL}
@@ -144,12 +194,21 @@ export default function VillaLandingPage() {
                 Idéal pour 12 voyageurs. (Fêtes non autorisées)
               </p>
 
-              <div className="flex flex-wrap items-center justify-center gap-2 mb-8" aria-label="Tarif à partir de 595 euros la nuit">
+              <div className="flex flex-wrap items-center justify-center gap-2 mb-4" aria-label="Tarif à partir de 595 euros la nuit">
                 <span className="inline-flex items-center rounded-full bg-white/15 backdrop-blur-md border border-white/20 px-4 py-1.5 text-sm font-semibold text-white">
                   À partir de 595 € / nuit
                 </span>
                 <span className="text-xs text-slate-100/80">Tarifs selon dates • voir calendrier ci-dessous</span>
               </div>
+
+              {firstAvailableDate && (
+                <div className="flex justify-center mb-8">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 px-4 py-1.5 text-sm font-semibold text-emerald-200 animate-pulse">
+                    <Calendar className="w-4 h-4" aria-hidden="true" />
+                    Disponible dès le {firstAvailableDate}
+                  </span>
+                </div>
+              )}
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
@@ -194,12 +253,12 @@ export default function VillaLandingPage() {
             viewport={{ once: true }}
             variants={STAGGER_CONTAINER}
           >
-            <FeatureIcon icon={Users} label="12 Voyageurs" />
-            <FeatureIcon icon={BedDouble} label="6 Chambres" />
+            <FeatureIcon icon={Users} label={<><AnimatedCounter value={12} /> Voyageurs</>} />
+            <FeatureIcon icon={BedDouble} label={<><AnimatedCounter value={6} /> Chambres</>} />
             <FeatureIcon icon={Waves} label="Piscine Privée" />
             <FeatureIcon icon={Wind} label="Climatisation" />
             <FeatureIcon icon={Car} label="Garage Fermé" />
-            <FeatureIcon icon={MapPin} label="Centre à pied" />
+            <FeatureIcon icon={MapPin} label={<><AnimatedCounter value={7} /> min centre</>} />
             <FeatureIcon icon={Wifi} label="Wifi Haut Débit" />
             <FeatureIcon icon={Tv} label="Smart TV" />
           </motion.div>
@@ -251,25 +310,19 @@ export default function VillaLandingPage() {
             </div>
           </motion.div>
 
-          {/* Grid Photos avec lazy loading */}
-          <motion.div
-            className="grid grid-cols-2 gap-4"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={STAGGER_CONTAINER}
-          >
+          {/* Grid Photos avec parallax */}
+          <div className="grid grid-cols-2 gap-4">
             <div className="space-y-4 mt-8">
-              <PhotoCard src="/images/villa/salon" alt="Salon spacieux avec canapé et décoration moderne" aspectRatio="aspect-[3/4]" />
-              <PhotoCard src="/images/villa/cuisine" alt="Cuisine équipée avec îlot central" aspectRatio="aspect-square" />
-              <PhotoCard src="/images/villa/Autres/Terrace_Piscine.jpeg" alt="Terrasse et piscine privée en hyper-centre" aspectRatio="aspect-[3/4]" />
+              <ParallaxPhoto src="/images/villa/salon" alt="Salon spacieux avec canapé et décoration moderne" aspectRatio="aspect-[3/4]" offset={30} />
+              <ParallaxPhoto src="/images/villa/cuisine" alt="Cuisine équipée avec îlot central" aspectRatio="aspect-square" offset={20} />
+              <ParallaxPhoto src="/images/villa/Autres/Terrace_Piscine.jpeg" alt="Terrasse et piscine privée en hyper-centre" aspectRatio="aspect-[3/4]" offset={40} />
             </div>
             <div className="space-y-4">
-              <PhotoCard src="/images/villa/repas" alt="Espace repas avec grande table" aspectRatio="aspect-square" />
-              <PhotoCard src="/images/villa/patio" alt="Patio extérieur avec ambiance soirée" aspectRatio="aspect-[3/4]" />
-              <PhotoCard src="/images/villa/SDB/SDB_Parents.jpeg" alt="Salle de bain parentale avec baignoire jacuzzi" aspectRatio="aspect-square" />
+              <ParallaxPhoto src="/images/villa/repas" alt="Espace repas avec grande table" aspectRatio="aspect-square" offset={25} />
+              <ParallaxPhoto src="/images/villa/patio" alt="Patio extérieur avec ambiance soirée" aspectRatio="aspect-[3/4]" offset={35} />
+              <ParallaxPhoto src="/images/villa/SDB/SDB_Parents.jpeg" alt="Salle de bain parentale avec baignoire jacuzzi" aspectRatio="aspect-square" offset={20} />
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -374,95 +427,7 @@ export default function VillaLandingPage() {
           </div>
 
           {(() => {
-            const items = [
-              {
-                src: '/images/villa/Autres/Vue_Maison_Haut.jpeg',
-                alt: "Vue de la maison depuis l'étage",
-                aspectRatio: 'aspect-[3/4]',
-              },
-              {
-                src: '/images/villa/Autres/Terrace_Piscine.jpeg',
-                alt: 'Terrasse avec piscine privée',
-                aspectRatio: 'aspect-square',
-              },
-              {
-                src: '/images/villa/Autres/Jardin_derriere.jpeg',
-                alt: 'Jardin privé luxuriant',
-                aspectRatio: 'aspect-square',
-              },
-              {
-                src: '/images/villa/Autres/hero-pool.webp',
-                alt: 'Piscine privée et jardin luxuriant',
-                aspectRatio: 'aspect-[3/4]',
-              },
-              {
-                src: '/images/villa/Autres/hero-pool3.webp',
-                alt: 'Piscine privée vue depuis la terrasse',
-                aspectRatio: 'aspect-square',
-              },
-              {
-                src: '/images/villa/Autres/hero-pool%202.webp',
-                alt: 'Piscine privée et espace détente',
-                aspectRatio: 'aspect-square',
-              },
-              {
-                src: "/images/villa/Autres/Cuisine_ete.jpeg",
-                alt: "Cuisine d'été équipée",
-                aspectRatio: 'aspect-[3/4]',
-              },
-              {
-                src: '/images/villa/Autres/cuisine.webp',
-                alt: 'Cuisine moderne entièrement équipée',
-                aspectRatio: 'aspect-square',
-              },
-              {
-                src: '/images/villa/Autres/Cuisine_ete_2.jpeg',
-                alt: "Cuisine d'été et coin repas",
-                aspectRatio: 'aspect-square',
-              },
-              {
-                src: '/images/villa/Autres/patio.webp',
-                alt: 'Patio extérieur',
-                aspectRatio: 'aspect-[3/4]',
-              },
-              {
-                src: '/images/villa/Autres/repas.webp',
-                alt: 'Espace repas',
-                aspectRatio: 'aspect-square',
-              },
-              {
-                src: '/images/villa/Autres/salon.webp',
-                alt: 'Salon',
-                aspectRatio: 'aspect-square',
-              },
-              {
-                src: '/images/villa/SDB/SDB_Parents.jpeg',
-                alt: 'Salle de bain parentale avec baignoire jacuzzi',
-                aspectRatio: 'aspect-square',
-              },
-              {
-                src: '/images/villa/SDB/SDB_RDC.jpeg',
-                alt: 'Salle de douche au rez-de-chaussée',
-                aspectRatio: 'aspect-[3/4]',
-              },
-              {
-                src: '/images/villa/SDB/SDB_Enfants1.jpeg',
-                alt: 'Salle de bain enfants',
-                aspectRatio: 'aspect-square',
-              },
-              {
-                src: '/images/villa/Autres/Jardin_derriere_2.jpeg',
-                alt: 'Jardin et terrasse côté piscine',
-                aspectRatio: 'aspect-[3/4]',
-              },
-              {
-                src: '/images/villa/Autres/Jardin_derriere_3.jpeg',
-                alt: 'Jardin et coin détente',
-                aspectRatio: 'aspect-square',
-              },
-            ];
-
-            const visibleItems = showAllGallery ? items : items.slice(0, 6);
+            const visibleItems = showAllGallery ? GALLERY_ITEMS : GALLERY_ITEMS.slice(0, 6);
 
             return (
               <>
@@ -474,12 +439,13 @@ export default function VillaLandingPage() {
                   viewport={{ once: true }}
                   variants={STAGGER_CONTAINER}
                 >
-                  {visibleItems.map((item) => (
+                  {visibleItems.map((item, idx) => (
                     <PhotoCard
                       key={item.src}
                       src={item.src}
                       alt={item.alt}
                       aspectRatio={item.aspectRatio}
+                      onClick={() => setLightboxIndex(idx)}
                     />
                   ))}
                 </motion.div>
@@ -835,35 +801,96 @@ export default function VillaLandingPage() {
       </section>
 
       {/* --- FOOTER --- */}
-      <footer className="bg-slate-900 text-white py-12" role="contentinfo">
-        <div className="container mx-auto px-4 text-center space-y-4">
-          <p className="text-slate-400">
-            © {new Date().getFullYear()} Villa Oasis Montpellier - Agathe & Antoine
-          </p>
-          <div className="flex justify-center gap-4 text-sm text-slate-400 flex-wrap">
-            <Link href={AIRBNB_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-              Airbnb
-            </Link>
-            <span>•</span>
-            <Link href={ABRITEL_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-              Abritel
-            </Link>
-            <span>•</span>
-            <Link href={LEBONCOIN_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-              Leboncoin
-            </Link>
+      <footer className="bg-slate-900 text-white py-16" role="contentinfo">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-3 gap-12 mb-12">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Waves className="w-5 h-5 text-emerald-400" />
+                <span className="font-bold text-lg">maisonmontpellier.fr</span>
+              </div>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Villa de luxe avec piscine privée au cœur de Montpellier. 265m², 6 chambres, jardin tropical. L'oasis urbaine idéale pour vos vacances.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-sm uppercase tracking-wider text-slate-300 mb-4">Liens rapides</h4>
+              <div className="space-y-2 text-sm">
+                <a href="#visite" className="block text-slate-400 hover:text-emerald-400 transition-colors">Visite virtuelle</a>
+                <a href="#disponibilites" className="block text-slate-400 hover:text-emerald-400 transition-colors">Disponibilités</a>
+                <Link href={LEBONCOIN_URL} target="_blank" rel="noopener noreferrer" className="block text-slate-400 hover:text-emerald-400 transition-colors">Réserver sur Leboncoin</Link>
+                <Link href={AIRBNB_URL} target="_blank" rel="noopener noreferrer" className="block text-slate-400 hover:text-emerald-400 transition-colors">Voir sur Airbnb</Link>
+                <Link href={ABRITEL_URL} target="_blank" rel="noopener noreferrer" className="block text-slate-400 hover:text-emerald-400 transition-colors">Voir sur Abritel</Link>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-sm uppercase tracking-wider text-slate-300 mb-4">Contact direct</h4>
+              <div className="space-y-3 text-sm">
+                <a href="tel:+33645419495" className="flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors">
+                  <Phone className="w-4 h-4" aria-hidden="true" />
+                  Agathe : 06 45 41 94 95
+                </a>
+                <a href="tel:+33784261944" className="flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors">
+                  <Phone className="w-4 h-4" aria-hidden="true" />
+                  Antoine : 07 84 26 19 44
+                </a>
+                <a href="mailto:contact@maisonmontpellier.fr" className="flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors">
+                  <Mail className="w-4 h-4" aria-hidden="true" />
+                  contact@maisonmontpellier.fr
+                </a>
+              </div>
+              <div className="mt-4">
+                <p className="text-xs text-slate-500">
+                  <MapPin className="w-3 h-3 inline mr-1" aria-hidden="true" />
+                  Quartier Antigone, Montpellier 34000
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="flex justify-center gap-4 text-xs text-slate-500">
-            <a href="tel:+33645419495" className="hover:text-slate-300 transition-colors">
-              📞 Agathe: 06 45 41 94 95
-            </a>
-            <span>•</span>
-            <a href="tel:+33784261944" className="hover:text-slate-300 transition-colors">
-              📞 Antoine: 07 84 26 19 44
-            </a>
+
+          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-slate-500 text-sm">
+              © {new Date().getFullYear()} Villa Oasis Montpellier — Agathe & Antoine Billotte
+            </p>
+            <div className="flex items-center gap-4 text-xs text-slate-500">
+              <span>Superhôtes Airbnb</span>
+              <span>•</span>
+              <span>Montpellier, France</span>
+            </div>
           </div>
         </div>
       </footer>
+
+      {/* --- STICKY CTA MOBILE --- */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 backdrop-blur-xl border-t border-slate-200 px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+        <div className="flex items-center justify-between gap-3">
+          <div className="text-xs">
+            <p className="font-bold text-slate-900">À partir de 595 €/nuit</p>
+            {firstAvailableDate && <p className="text-emerald-600 text-[11px]">Dispo dès le {firstAvailableDate}</p>}
+          </div>
+          <Link
+            href={LEBONCOIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-gradient-to-r from-emerald-600 to-teal-500 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg hover:shadow-xl transition-all"
+          >
+            Réserver
+          </Link>
+        </div>
+      </div>
+
+      {/* --- LIGHTBOX --- */}
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={showAllGallery ? GALLERY_ITEMS : GALLERY_ITEMS.slice(0, 6)}
+          index={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onPrev={() => setLightboxIndex((i) => i !== null ? (i - 1 + (showAllGallery ? GALLERY_ITEMS.length : 6)) % (showAllGallery ? GALLERY_ITEMS.length : 6) : null)}
+          onNext={() => setLightboxIndex((i) => i !== null ? (i + 1) % (showAllGallery ? GALLERY_ITEMS.length : 6) : null)}
+        />
+      )}
 
     </main>
   );
@@ -871,7 +898,7 @@ export default function VillaLandingPage() {
 
 // --- SUB-COMPONENTS ---
 
-function FeatureIcon({ icon: Icon, label }: { icon: any, label: string }) {
+function FeatureIcon({ icon: Icon, label }: { icon: any, label: React.ReactNode }) {
   return (
     <motion.div
       className="flex flex-col items-center gap-2 text-slate-600 hover:text-emerald-700 transition-colors cursor-default"
@@ -895,23 +922,53 @@ function ListItem({ text }: { text: string }) {
   );
 }
 
-function PhotoCard({ src, alt, aspectRatio }: { src: string, alt: string, aspectRatio: string }) {
+function PhotoCard({ src, alt, aspectRatio, onClick }: { src: string, alt: string, aspectRatio: string, onClick?: () => void }) {
   const resolvedSrc = /\.(avif|webp|jpe?g|png)$/i.test(src) ? src : `${src}.webp`;
   return (
     <motion.div
-      className={`${aspectRatio} rounded-2xl overflow-hidden relative shadow-lg group border border-slate-200/60 bg-white`}
+      className={`${aspectRatio} rounded-2xl overflow-hidden relative shadow-lg group border border-slate-200/60 bg-white ${onClick ? 'cursor-pointer' : ''}`}
       initial="hidden"
       animate="visible"
       variants={FADE_UP}
+      onClick={onClick}
+      whileHover={{ scale: 1.02 }}
     >
       <Image
         src={resolvedSrc}
         alt={alt}
         fill
-        className="object-cover group-hover:scale-105 transition-transform duration-700"
+        className="object-cover group-hover:scale-110 transition-transform duration-700"
         loading="lazy"
       />
+      {onClick && (
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 text-xs font-semibold text-slate-900 shadow-lg">
+            Agrandir
+          </span>
+        </div>
+      )}
     </motion.div>
+  );
+}
+
+function ParallaxPhoto({ src, alt, aspectRatio, offset = 30 }: { src: string; alt: string; aspectRatio: string; offset?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], [offset, -offset]);
+  const resolvedSrc = /\.(avif|webp|jpe?g|png)$/i.test(src) ? src : `${src}.webp`;
+
+  return (
+    <div ref={ref} className={`${aspectRatio} rounded-2xl overflow-hidden relative shadow-lg border border-slate-200/60 bg-white`}>
+      <motion.div className="absolute inset-[-20px]" style={{ y }}>
+        <Image
+          src={resolvedSrc}
+          alt={alt}
+          fill
+          className="object-cover"
+          loading="lazy"
+        />
+      </motion.div>
+    </div>
   );
 }
 
@@ -1009,6 +1066,113 @@ function HeroVideoBackground({ sources }: { sources: string[] }) {
       <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
     </div>
   );
+}
+
+function Lightbox({ images, index, onClose, onPrev, onNext }: {
+  images: { src: string; alt: string }[];
+  index: number;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  const item = images[index];
+  const resolvedSrc = /\.(avif|webp|jpe?g|png)$/i.test(item.src) ? item.src : `${item.src}.webp`;
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') onPrev();
+      if (e.key === 'ArrowRight') onNext();
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKey);
+    };
+  }, [onClose, onPrev, onNext]);
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <button
+        onClick={(e) => { e.stopPropagation(); onClose(); }}
+        className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-10"
+        aria-label="Fermer"
+      >
+        <XIcon className="w-8 h-8" />
+      </button>
+
+      <button
+        onClick={(e) => { e.stopPropagation(); onPrev(); }}
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full p-3 backdrop-blur-sm z-10"
+        aria-label="Photo précédente"
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+
+      <button
+        onClick={(e) => { e.stopPropagation(); onNext(); }}
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full p-3 backdrop-blur-sm z-10"
+        aria-label="Photo suivante"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
+
+      <div className="relative w-[90vw] h-[80vh] max-w-5xl" onClick={(e) => e.stopPropagation()}>
+        <Image
+          src={resolvedSrc}
+          alt={item.alt}
+          fill
+          className="object-contain"
+          priority
+        />
+      </div>
+
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-sm font-medium">
+        {index + 1} / {images.length}
+      </div>
+    </motion.div>
+  );
+}
+
+function AnimatedCounter({ value, suffix = '' }: { value: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current || hasAnimated) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasAnimated(true);
+          let start = 0;
+          const duration = 1200;
+          const startTime = performance.now();
+          const animate = (now: number) => {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            start = Math.round(eased * value);
+            setCount(start);
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [value, hasAnimated]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
 }
 
 function AvailabilityCalendar({ blockedDates }: { blockedDates: Set<string> }) {
